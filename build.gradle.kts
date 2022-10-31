@@ -12,4 +12,10 @@ allprojects {
         maven { setUrl("https://mirrors.tencent.com/nexus/repository/maven-public/") }
         maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
     }
+
+    apply(plugin = "com.vanniktech.maven.publish")
+
+    pluginManager.withPlugin("java") {
+        extensions.getByType<JavaPluginExtension>().sourceCompatibility = JavaVersion.VERSION_1_8
+    }
 }

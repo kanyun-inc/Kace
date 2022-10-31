@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'maven-publish'
 }
+
 android {
     compileSdkVersion 32
 
@@ -23,6 +23,10 @@ android {
     }
 
     resourcePrefix "android-extensions-compat"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -30,18 +34,4 @@ dependencies {
 
     compileOnly("androidx.fragment:fragment:1.4.1")
     compileOnly("androidx.lifecycle:lifecycle-common:2.4.0")
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = "$GROUP"
-                artifactId = "kace-runtime"
-                version = "$VERSION_NAME"
-            }
-        }
-    }
 }
