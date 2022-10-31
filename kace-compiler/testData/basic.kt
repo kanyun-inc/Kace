@@ -1,0 +1,126 @@
+// SOURCE
+// FILE: Activity.java
+package android.app;
+
+public class Activity {
+
+}
+// FILE: BaseActivity.java
+package android.app;
+
+import android.app.Activity;
+
+public class BaseActivity extends Activity {
+
+}
+// FILE: View.java
+package android.view;
+
+public class View {
+    public String value;
+    public View(String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
+}
+// FILE: AndroidExtensionsBase.java
+package com.kanyun.kace;
+
+import android.view.View;
+
+public interface AndroidExtensionsBase {
+
+    <T extends View> T findViewByIdCached(AndroidExtensionsBase owner, int id);
+
+}
+// FILE: common.kt
+package com.kanyun.kace
+
+import android.view.View
+
+interface AndroidExtensions: AndroidExtensionsBase {
+    override fun <T: View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? = error("Never called!")
+}
+class AndroidExtensionsImpl: AndroidExtensions {
+
+    private val map = HashMap<Int, View>()
+
+    init {
+        List(10) {
+            map[it] = View("$it")
+        }
+    }
+
+    override fun <T: View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        println(owner::class)
+        return  map[id] as T?
+    }
+}
+
+// FILE: Main.kt  [MainKt#main]
+import com.kanyun.kace.AndroidExtensions
+import com.kanyun.kace.AndroidExtensionsBase
+import com.kanyun.kace.AndroidExtensionsImpl
+import android.view.View
+import android.app.Activity
+import android.app.BaseActivity
+
+class MainActivity : AndroidExtensions by AndroidExtensionsImpl() {
+
+}
+
+class SecondActivity : AndroidExtensions {
+
+}
+
+class ThirdActivity : AndroidExtensions {
+
+    override fun <T: View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        println(owner::class)
+        return View("Third!!") as T?
+    }
+}
+
+class FourthActivity : Activity() {
+
+}
+
+
+class FifthActivity : BaseActivity() {
+
+}
+
+fun main() {
+    val main = MainActivity()
+    println(main.findViewByIdCached<View>(main, 0))
+
+    val second = SecondActivity()
+    println(second.findViewByIdCached<View>(second, 1))
+
+    val third = ThirdActivity()
+    println(third.findViewByIdCached<View>(third, 2))
+
+    val fouth = FourthActivity()
+    println(fouth.findViewByIdCached<View>(fouth, 3))
+
+    val fifth = FifthActivity()
+    println(fifth.findViewByIdCached<View>(fifth, 4))
+}
+
+// GENERATED
+// FILE: compiles.log
+OK
+// FILE: Main.kt
+class MainActivity
+0
+class SecondActivity
+1
+class ThirdActivity
+Third!!
+class FourthActivity
+3
+class FifthActivity
+4

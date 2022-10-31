@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://mirrors.tencent.com/nexus/repository/maven-public/' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "Kace"
+
+include(":kace-compiler")
+include(":kace-gradle-plugin")
+include(":kace-runtime")
