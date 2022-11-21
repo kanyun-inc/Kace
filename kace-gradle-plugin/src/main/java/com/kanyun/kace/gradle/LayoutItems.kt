@@ -33,7 +33,7 @@ internal data class LayoutNodeItem constructor(
                     "WebView" -> {
                         "android.webkit.WebView"
                     }
-                    "View", "ViewStub" -> {
+                    "View", "ViewStub", "TextureView", "SurfaceView" -> {
                         "android.view.$xmlType"
                     }
                     else -> {
