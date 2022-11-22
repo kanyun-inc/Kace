@@ -16,11 +16,16 @@
 
 package com.kanyun.kace.gradle.utils
 
+import com.android.build.api.dsl.AndroidSourceDirectorySet
 import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.api.AndroidSourceSet
 import com.kanyun.kace.gradle.LayoutDir
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.logging.LogLevel
+import org.gradle.api.logging.Logger
 import java.io.File
+import java.lang.reflect.Field
 
 internal fun Project.withAllPlugins(vararg pluginIds: String, action: (List<Plugin<*>>) -> Unit) {
     return withAllPlugins(pluginIds.toList(), action)
@@ -91,4 +96,40 @@ internal fun addCustomVariantLayoutDir(
             }
         }
     }
+}
+
+@Throws(NoSuchFieldException::class, IllegalAccessException::class)
+fun getFieldValue(instance: Any, name: String): Any? {
+    val clazz: Class<*> = instance.javaClass
+    val field = getField(clazz, name)
+    field.isAccessible = true
+    return field[instance]
+}
+
+@Throws(NoSuchFieldException::class)
+private fun getField(clazz: Class<*>, name: String): Field {
+    return try {
+        clazz.getDeclaredField(name)
+    } catch (e: NoSuchFieldException) {
+        if (clazz.superclass != null) {
+            getField(clazz.superclass, name)
+        } else {
+            throw e
+        }
+    }
+}
+
+internal fun configSourceSetDir(
+    sourceSet: AndroidSourceSet,
+    sourceOutputDir: File,
+    logger: Logger
+) {
+    try {
+        val kotlinSourceSet = getFieldValue(sourceSet, "kotlin") as? AndroidSourceDirectorySet
+        kotlinSourceSet?.srcDir(sourceOutputDir)
+        return
+    } catch (e: Exception) {
+        logger.log(LogLevel.INFO, "sourceSet has no kotlin field")
+    }
+    sourceSet.java.srcDir(sourceOutputDir)
 }

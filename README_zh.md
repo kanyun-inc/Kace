@@ -22,7 +22,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.kanyun.kace:kace-gradle-plugin:1.0.0")
+        classpath("com.kanyun.kace:kace-gradle-plugin:$latest_version")
     }
 }
 
@@ -33,7 +33,7 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id("com.kanyun.kace") version "1.0.0" apply false
+        id("com.kanyun.kace") version "$latest_version" apply false
     }
 }
 ```
