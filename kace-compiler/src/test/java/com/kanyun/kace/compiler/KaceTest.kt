@@ -18,15 +18,11 @@ package com.kanyun.kace.compiler
 
 import com.bennyhuo.kotlin.compiletesting.extensions.module.KotlinModule
 import com.bennyhuo.kotlin.compiletesting.extensions.module.checkResult
-import com.bennyhuo.kotlin.compiletesting.extensions.module.compileAll
-import com.bennyhuo.kotlin.compiletesting.extensions.module.resolveAllDependencies
-import com.bennyhuo.kotlin.compiletesting.extensions.source.SingleFileModuleInfoLoader
+import com.bennyhuo.kotlin.compiletesting.extensions.source.FileBasedModuleInfoLoader
 import com.kanyun.kace.compiler.options.Options
 import org.junit.Test
 
 class KaceTest {
-
-    private val compileLogName = "compiles.log"
 
     @Test
     fun basic() {
@@ -34,7 +30,7 @@ class KaceTest {
     }
 
     private fun testBase(fileName: String) {
-        val loader = SingleFileModuleInfoLoader("testData/$fileName")
+        val loader = FileBasedModuleInfoLoader("testData/$fileName")
         val sourceModuleInfos = loader.loadSourceModuleInfos()
 
         Options.isEnabled.set(true)
@@ -43,8 +39,6 @@ class KaceTest {
             KotlinModule(it, componentRegistrars = listOf(KaceComponentRegistrar()))
         }
 
-        modules.resolveAllDependencies()
-        modules.compileAll()
         modules.checkResult(
             loader.loadExpectModuleInfos(),
             executeEntries = true,
