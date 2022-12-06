@@ -110,10 +110,10 @@ fun main() {
     println(fifth.findViewByIdCached<View>(fifth, 4))
 }
 
-// GENERATED
+// EXPECT
 // FILE: compiles.log
 OK
-// FILE: Main.kt
+// FILE: MainKt.main.stdout
 class MainActivity
 0
 class SecondActivity
