@@ -16,6 +16,8 @@
 
 package com.kanyun.kace.gradle
 
+import java.io.File
+import javax.inject.Inject
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
@@ -35,8 +37,6 @@ import org.gradle.work.Incremental
 import org.gradle.work.InputChanges
 import org.gradle.workers.WorkerExecutor
 import org.jetbrains.kotlin.incremental.ChangedFiles
-import java.io.File
-import javax.inject.Inject
 
 abstract class KaceGenerateTask : DefaultTask() {
 

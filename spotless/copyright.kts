@@ -13,13 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.kanyun.kace
-
-import android.view.View
-
-interface AndroidExtensions : AndroidExtensionsBase {
-
-    override fun <T : View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T =
-        error("Never called.")
-}

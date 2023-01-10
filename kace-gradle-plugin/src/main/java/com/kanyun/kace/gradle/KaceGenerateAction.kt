@@ -20,14 +20,14 @@ import com.kanyun.kace.BuildConfig
 import com.kanyun.kace.gradle.utils.appendLine
 import com.kanyun.kace.gradle.utils.initSAX
 import com.kanyun.kace.gradle.utils.parseXml
+import java.io.File
+import javax.xml.parsers.SAXParser
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.slf4j.LoggerFactory
-import java.io.File
-import javax.xml.parsers.SAXParser
 
 abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
     interface Parameters : WorkParameters {
@@ -66,7 +66,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
             writer.appendLine("import ${BuildConfig.KOTLIN_PLUGIN_GROUP}.AndroidExtensionsBase")
             writer.appendLine("import android.app.Activity")
             writer.appendLine("import androidx.fragment.app.Fragment")
-            writer.appendLine("import ${namespace}.R")
+            writer.appendLine("import $namespace.R")
             writer.newLine()
 
             layoutNodeItems.forEach { item ->
@@ -93,7 +93,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
                 writer.appendLine("package ${item.targetFilePackageName}.view")
                 writer.newLine()
                 writer.appendLine("import android.view.View")
-                writer.appendLine("import ${namespace}.R")
+                writer.appendLine("import $namespace.R")
                 writer.newLine()
 
                 layoutNodeItems.forEach { item ->
@@ -104,4 +104,3 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
             }
     }
 }
-

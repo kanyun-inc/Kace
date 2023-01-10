@@ -36,4 +36,3 @@ val IMPLICIT_ANDROID_EXTENSIONS_TYPES = setOf(
 const val FIND_VIEW_BY_ID_CACHED_NAME = "findViewByIdCached"
 
 const val DELEGATE_FIELD_NAME = "\$\$androidExtensionsImpl"
-

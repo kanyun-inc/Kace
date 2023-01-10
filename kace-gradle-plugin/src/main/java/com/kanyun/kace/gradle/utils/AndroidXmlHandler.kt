@@ -51,4 +51,3 @@ private fun Attributes.toMap(): HashMap<String, String> {
 }
 
 internal class ResourceIdentifier(val name: String, val packageName: String?)
-

@@ -39,5 +39,3 @@ class KaceComponentRegistrar : ComponentRegistrar {
         SyntheticResolveExtension.registerExtension(project, KaceSyntheticResolveExtension())
     }
 }
-
-

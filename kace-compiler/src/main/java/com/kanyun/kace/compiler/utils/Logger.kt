@@ -34,7 +34,6 @@ class Logger(private val messageCollector: MessageCollector) {
     }
 
     fun println(level: CompilerMessageSeverity, message: Any?) {
-        messageCollector.report(level, "[Kace] ${message.toString()}")
+        messageCollector.report(level, "[Kace] $message")
     }
-
 }

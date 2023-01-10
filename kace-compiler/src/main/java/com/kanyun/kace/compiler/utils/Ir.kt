@@ -24,7 +24,6 @@ import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.functions
 
-
 fun IrClass.findViewByIdCached(pluginContext: IrPluginContext): IrSimpleFunction? {
     return functions.find {
         it.isFindViewByIdCached(pluginContext)
@@ -32,12 +31,12 @@ fun IrClass.findViewByIdCached(pluginContext: IrPluginContext): IrSimpleFunction
 }
 
 fun IrFunction.isFindViewByIdCached(pluginContext: IrPluginContext): Boolean {
-    return name.identifier == FIND_VIEW_BY_ID_CACHED_NAME
-            && valueParameters.size == 2
-            && valueParameters[0].type == pluginContext.referenceClass(
+    return name.identifier == FIND_VIEW_BY_ID_CACHED_NAME &&
+        valueParameters.size == 2 &&
+        valueParameters[0].type == pluginContext.referenceClass(
         ANDROID_EXTENSIONS_BASE_FQNAME
-    )?.defaultType
-            && valueParameters[1].type == pluginContext.symbols.int.defaultType
+    )?.defaultType &&
+        valueParameters[1].type == pluginContext.symbols.int.defaultType
 }
 
 fun IrClass.isAndroidExtensions(): Boolean {
