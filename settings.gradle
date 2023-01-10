@@ -10,3 +10,11 @@ rootProject.name = "Kace"
 include(":kace-compiler")
 include(":kace-gradle-plugin")
 include(":kace-runtime")
+
+includeBuild("../kotlin-compile-testing") {
+    dependencySubstitution {
+        substitute module("com.github.tschuchortdev:kotlin-compile-testing") with project(":core")
+        substitute module("com.github.tschuchortdev:kotlin-compile-testing-ksp") with project(":ksp")
+    }
+}
+includeBuild("../kotlin-compile-testing-extensions")
