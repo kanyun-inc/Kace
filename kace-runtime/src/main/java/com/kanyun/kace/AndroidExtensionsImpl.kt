@@ -45,5 +45,4 @@ class AndroidExtensionsImpl : AndroidExtensions {
     private fun destroy() {
         cached?.clear()
     }
-
 }

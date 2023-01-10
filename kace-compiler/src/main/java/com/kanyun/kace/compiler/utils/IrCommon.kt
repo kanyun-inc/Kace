@@ -59,7 +59,9 @@ fun IrClass.addOverride(
 }
 
 fun IrSimpleFunction.overridesFunctionIn(fqName: FqName): Boolean =
-    parentClassOrNull?.fqNameWhenAvailable == fqName || allOverridden().any { it.parentClassOrNull?.fqNameWhenAvailable == fqName }
+    parentClassOrNull?.fqNameWhenAvailable == fqName || allOverridden().any {
+        it.parentClassOrNull?.fqNameWhenAvailable == fqName
+    }
 
 fun IrFunction.irThis(): IrExpression {
     val irDispatchReceiverParameter = dispatchReceiverParameter!!

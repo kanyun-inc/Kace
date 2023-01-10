@@ -36,5 +36,4 @@ class KaceCommandLineProcessor : CommandLineProcessor {
         value: String,
         configuration: CompilerConfiguration
     ) = Options.processOption(option, value, configuration)
-
 }

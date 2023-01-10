@@ -26,7 +26,7 @@ class KaceTest {
 
     @Test
     fun basic() {
-        testBase("basic.kt")
+        testBase("basic.txt")
     }
 
     private fun testBase(fileName: String) {
@@ -45,5 +45,4 @@ class KaceTest {
             checkCompilerOutput = true
         )
     }
-
 }

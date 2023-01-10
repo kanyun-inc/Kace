@@ -105,7 +105,8 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                                         irGet(irValueParameter.type, irValueParameter.symbol)
                                     )
                                 }
-                            })
+                            }
+                        )
                     }.doBuild()
                 }
             }

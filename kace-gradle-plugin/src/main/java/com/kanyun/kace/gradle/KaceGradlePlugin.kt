@@ -26,9 +26,9 @@ import com.kanyun.kace.gradle.utils.addSourceSetLayoutDir
 import com.kanyun.kace.gradle.utils.configSourceSetDir
 import com.kanyun.kace.gradle.utils.getApplicationPackage
 import com.kanyun.kace.gradle.utils.withAllPlugins
+import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import java.io.File
 
 class KaceGradlePlugin : Plugin<Project> {
     override fun apply(target: Project) {

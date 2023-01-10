@@ -16,7 +16,11 @@
 
 package com.kanyun.kace.compiler
 
-import com.kanyun.kace.compiler.utils.*
+import com.kanyun.kace.compiler.utils.ANDROID_EXTENSIONS_CLASS_NAME
+import com.kanyun.kace.compiler.utils.ANDROID_EXTENSIONS_FQNAME
+import com.kanyun.kace.compiler.utils.ANDROID_EXTENSIONS_FULL_NAME
+import com.kanyun.kace.compiler.utils.ANDROID_EXTENSIONS_PACKAGE_NAME
+import com.kanyun.kace.compiler.utils.IMPLICIT_ANDROID_EXTENSIONS_TYPES
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.descriptors.findClassAcrossModuleDependencies
@@ -43,7 +47,7 @@ class KaceSyntheticResolveExtension : SyntheticResolveExtension {
         }
 
         var shouldAddSuperType = false
-        for(superTypeName in superTypeNames) {
+        for (superTypeName in superTypeNames) {
             if (superTypeName == ANDROID_EXTENSIONS_FULL_NAME) return
             if (!shouldAddSuperType && superTypeName in IMPLICIT_ANDROID_EXTENSIONS_TYPES) {
                 shouldAddSuperType = true
@@ -69,5 +73,4 @@ class KaceSyntheticResolveExtension : SyntheticResolveExtension {
             )
         )
     }
-
 }
