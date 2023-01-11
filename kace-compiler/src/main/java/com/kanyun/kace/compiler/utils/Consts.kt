@@ -18,15 +18,15 @@ package com.kanyun.kace.compiler.utils
 
 import org.jetbrains.kotlin.name.FqName
 
-val ANDROID_EXTENSIONS_PACKAGE_NAME = "com.kanyun.kace"
-val ANDROID_EXTENSIONS_CLASS_NAME = "AndroidExtensions"
-val ANDROID_EXTENSIONS_FULL_NAME = "com.kanyun.kace.AndroidExtensions"
+const val ANDROID_EXTENSIONS_PACKAGE_NAME = "com.kanyun.kace"
+const val ANDROID_EXTENSIONS_CLASS_NAME = "AndroidExtensions"
+
+const val ANDROID_EXTENSIONS_FULL_NAME = "com.kanyun.kace.AndroidExtensions"
+const val ANDROID_EXTENSIONS_BASE_FULL_NAME = "com.kanyun.kace.AndroidExtensionsBase"
+const val ANDROID_EXTENSIONS_IMPL_FULL_NAME = "com.kanyun.kace.AndroidExtensionsImpl"
+const val ANDROID_VIEW_FULL_NAME = "android.view.View"
 
 val ANDROID_EXTENSIONS_FQNAME = FqName(ANDROID_EXTENSIONS_FULL_NAME)
-val ANDROID_EXTENSIONS_BASE_FQNAME = FqName("com.kanyun.kace.AndroidExtensionsBase")
-val ANDROID_EXTENSIONS_IMPL_FQNAME = FqName("com.kanyun.kace.AndroidExtensionsImpl")
-
-val ANDROID_VIEW_FQNAME = FqName("android.view.View")
 
 val IMPLICIT_ANDROID_EXTENSIONS_TYPES = setOf(
     "android.app.Activity",
