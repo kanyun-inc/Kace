@@ -16,11 +16,11 @@
 
 package com.kanyun.kace.compiler.options
 
+import java.lang.ref.WeakReference
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
-import java.lang.ref.WeakReference
 
 object Options {
 
@@ -93,5 +93,4 @@ object Options {
     fun setup(compilerConfiguration: CompilerConfiguration) {
         this.compilerConfiguration = WeakReference(compilerConfiguration)
     }
-
 }
