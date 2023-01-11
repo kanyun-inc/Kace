@@ -20,6 +20,7 @@ import com.bennyhuo.kotlin.compiletesting.extensions.module.KotlinModule
 import com.bennyhuo.kotlin.compiletesting.extensions.module.checkResult
 import com.bennyhuo.kotlin.compiletesting.extensions.source.FileBasedModuleInfoLoader
 import com.kanyun.kace.compiler.options.Options
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.Test
 
 class KaceTest {
@@ -29,6 +30,7 @@ class KaceTest {
         testBase("basic.txt")
     }
 
+    @OptIn(ExperimentalCompilerApi::class)
     private fun testBase(fileName: String) {
         val loader = FileBasedModuleInfoLoader("testData/$fileName")
         val sourceModuleInfos = loader.loadSourceModuleInfos()
@@ -36,13 +38,14 @@ class KaceTest {
         Options.isEnabled.set(true)
 
         val modules = sourceModuleInfos.map {
-            KotlinModule(it, componentRegistrars = listOf(KaceComponentRegistrar()))
+            KotlinModule(it, compilerPluginRegistrars = listOf(KaceCompilerPluginRegistrar()))
         }
 
         modules.checkResult(
             loader.loadExpectModuleInfos(),
             executeEntries = true,
-            checkCompilerOutput = true
+            checkCompilerOutput = true,
+            checkGeneratedIr = true
         )
     }
 }

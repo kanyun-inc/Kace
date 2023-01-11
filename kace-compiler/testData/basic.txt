@@ -124,3 +124,46 @@ class FourthActivity
 3
 class FifthActivity
 4
+// FILE: Main.kt.ir
+class MainActivity : AndroidExtensions {
+    private val $$delegate_0: AndroidExtensionsImpl = AndroidExtensionsImpl()
+    override fun <T: View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        return <this>.$$delegate_0.findViewByIdCached(owner, id)
+    }
+}
+class SecondActivity : AndroidExtensions {
+    private var $$androidExtensionsImpl: AndroidExtensionsImpl = AndroidExtensionsImpl()
+    override fun <T: View> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        return <this>.$$androidExtensionsImpl.findViewByIdCached(owner, id)
+    }
+}
+class ThirdActivity : AndroidExtensions {
+    override fun <T: View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        println(<<IrGetClassImpl>>)
+        return View("Third!!")
+    }
+}
+class FourthActivity : Activity, AndroidExtensions {
+    private var $$androidExtensionsImpl: AndroidExtensionsImpl = AndroidExtensionsImpl()
+    override fun <T: View> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        return <this>.$$androidExtensionsImpl.findViewByIdCached(owner, id)
+    }
+}
+class FifthActivity : BaseActivity, AndroidExtensions {
+    private var $$androidExtensionsImpl: AndroidExtensionsImpl = AndroidExtensionsImpl()
+    override fun <T: View> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
+        return <this>.$$androidExtensionsImpl.findViewByIdCached(owner, id)
+    }
+}
+fun main() {
+    val main = MainActivity()
+    println(main.findViewByIdCached(main, 0))
+    val second = SecondActivity()
+    println(second.findViewByIdCached(second, 1))
+    val third = ThirdActivity()
+    println(third.findViewByIdCached(third, 2))
+    val fouth = FourthActivity()
+    println(fouth.findViewByIdCached(fouth, 3))
+    val fifth = FifthActivity()
+    println(fifth.findViewByIdCached(fifth, 4))
+}

@@ -17,27 +17,19 @@
 package com.kanyun.kace.compiler
 
 import com.google.auto.service.AutoService
-import com.kanyun.kace.compiler.utils.Logger
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
-import org.jetbrains.kotlin.com.intellij.mock.MockProject
-import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.resolve.extensions.SyntheticResolveExtension
 
-lateinit var logger: Logger
-
 @OptIn(ExperimentalCompilerApi::class)
-@AutoService(ComponentRegistrar::class)
-class KaceComponentRegistrar : ComponentRegistrar {
+@AutoService(CompilerPluginRegistrar::class)
+class KaceCompilerPluginRegistrar : CompilerPluginRegistrar() {
 
-    override fun registerProjectComponents(
-        project: MockProject,
-        configuration: CompilerConfiguration
-    ) {
-        logger = Logger(configuration.get(CLIConfigurationKeys.ORIGINAL_MESSAGE_COLLECTOR_KEY)!!)
-        IrGenerationExtension.registerExtension(project, KaceIrGenerationExtension())
-        SyntheticResolveExtension.registerExtension(project, KaceSyntheticResolveExtension())
+    override val supportsK2: Boolean = false
+    override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
+        IrGenerationExtension.registerExtension(KaceIrGenerationExtension())
+        SyntheticResolveExtension.registerExtension(KaceSyntheticResolveExtension())
     }
 }

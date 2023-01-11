@@ -16,12 +16,11 @@
 
 package com.kanyun.kace.compiler.options
 
-import com.kanyun.kace.compiler.logger
-import java.lang.ref.WeakReference
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
+import java.lang.ref.WeakReference
 
 object Options {
 
@@ -95,11 +94,4 @@ object Options {
         this.compilerConfiguration = WeakReference(compilerConfiguration)
     }
 
-    fun dump() {
-        logger.warn(
-            allOptions.joinToString {
-                "${it.option.optionName}: ${it()}"
-            }
-        )
-    }
 }
