@@ -16,6 +16,7 @@
 
 package com.kanyun.kace.gradle.utils
 
+import com.android.Version
 import com.android.build.api.dsl.AndroidSourceDirectorySet
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.api.AndroidSourceSet
@@ -125,11 +126,15 @@ internal fun configSourceSetDir(
     logger: Logger
 ) {
     try {
-        val kotlinSourceSet = getFieldValue(sourceSet, "kotlin") as? AndroidSourceDirectorySet
-        kotlinSourceSet?.srcDir(sourceOutputDir)
-        return
+        val agpVersion = Version.ANDROID_GRADLE_PLUGIN_VERSION
+        if (agpVersion.startsWith("7.3.")) {
+            val kotlinSourceSet = getFieldValue(sourceSet, "kotlin") as? AndroidSourceDirectorySet
+            kotlinSourceSet?.srcDir(sourceOutputDir)
+        } else {
+            sourceSet.java.srcDir(sourceOutputDir)
+        }
     } catch (e: Exception) {
         logger.log(LogLevel.INFO, "sourceSet has no kotlin field")
+        sourceSet.java.srcDir(sourceOutputDir)
     }
-    sourceSet.java.srcDir(sourceOutputDir)
 }
