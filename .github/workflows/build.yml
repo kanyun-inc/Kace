@@ -38,3 +38,6 @@ jobs:
 
       - name: Run local tests
         run: ./gradlew :kace-compiler:test
+
+      - name: Build apk
+        run: cd kace-sample && ./gradlew :app:assembleMinApi21DemoDebug
