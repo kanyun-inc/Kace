@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "4.2.0" apply false
-    id("com.android.library") version "4.2.0" apply false
+    id("com.android.application") apply false
+    id("com.android.library") apply false
     id("org.jetbrains.kotlin.android") version "1.7.10" apply false
-    id("com.kanyun.kace") apply false
+    id("com.kanyun.kace") version "0.0.0-SNAPSHOT" apply false
 }
 
 tasks.register<Delete>(name = "clean") {
@@ -13,8 +13,10 @@ tasks.register<Delete>(name = "clean") {
 
 allprojects {
     repositories {
+        if (extra["testAgp"] == "true") {
+            mavenLocal()
+        }
         google()
         mavenCentral()
-        mavenLocal()
     }
 }
