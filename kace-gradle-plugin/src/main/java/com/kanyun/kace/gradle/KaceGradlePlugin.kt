@@ -23,12 +23,12 @@ import com.android.build.gradle.api.BaseVariant
 import com.kanyun.kace.BuildConfig
 import com.kanyun.kace.gradle.utils.addCustomVariantLayoutDir
 import com.kanyun.kace.gradle.utils.addSourceSetLayoutDir
-import com.kanyun.kace.gradle.utils.configSourceSetDir
 import com.kanyun.kace.gradle.utils.getApplicationPackage
 import com.kanyun.kace.gradle.utils.withAllPlugins
 import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class KaceGradlePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -57,9 +57,9 @@ class KaceGradlePlugin : Plugin<Project> {
             val compileKotlin = target.tasks.getByName("compile${variantCapitalizeName}Kotlin")
             val sourceOutputDir =
                 File(target.buildDir, "generated/source/kace/${variant.dirName}")
-            val sourceSet = extension.sourceSets.getByName(variant.name)
-            configSourceSetDir(sourceSet, sourceOutputDir, target.logger)
-
+            val relativePath =
+                target.projectDir.toPath().relativize(sourceOutputDir.toPath()).toString()
+            (compileKotlin as KotlinCompile).source(relativePath)
             val task = target.tasks.register(
                 "generate${variantCapitalizeName}KaceCode", KaceGenerateTask::class.java
             ) { task ->

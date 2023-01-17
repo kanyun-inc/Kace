@@ -19,7 +19,6 @@ package com.kanyun.kace
 import android.app.Activity
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
 sealed interface AndroidExtensionsComponent {
@@ -44,7 +43,7 @@ class AndroidExtensionsActivity(
 
     init {
         if (activity is LifecycleOwner) {
-            activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            activity.lifecycle.addObserver(object : KaceLifecycleObserver() {
                 override fun onDestroy(owner: LifecycleOwner) {
                     super.onDestroy(owner)
                     onDestroy()
@@ -65,7 +64,7 @@ class AndroidExtensionsFragment(
 
     init {
         fragment.viewLifecycleOwnerLiveData.observe(fragment) {
-            it?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
+            it?.lifecycle?.addObserver(object : KaceLifecycleObserver() {
                 override fun onDestroy(owner: LifecycleOwner) {
                     super.onDestroy(owner)
                     onDestroy()

@@ -26,6 +26,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     compileOnly("com.android.tools.build:gradle:4.2.0")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
     implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
 }
 
