@@ -8,6 +8,7 @@ function setGradleVersion() {
 
 function testUnderAGPVersion() {
   local TestAGPVersion=$1
+  ./gradlew clean
 
   echo ./gradlew :app:assembleMinApi21DemoDebug -PtestAgp=true -PagpVersion=$TestAGPVersion
   ./gradlew :app:assembleMinApi21DemoDebug -PtestAgp=true -PagpVersion=$TestAGPVersion
