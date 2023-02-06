@@ -16,7 +16,7 @@ function testUnderAGPVersion() {
 
 cd kace-sample
 
-setGradleVersion 6.7.1
+setGradleVersion 6.8.3
 testUnderAGPVersion 4.2.0
 
 setGradleVersion 7.3.3
