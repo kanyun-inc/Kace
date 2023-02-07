@@ -30,7 +30,8 @@ internal fun parseXml(saxParser: SAXParser, file: File, logger: Logger): List<La
         saxParser.parse(
             inputStream,
             AndroidXmlHandler { id, tag ->
-                val resource = parseAndroidResource(id, tag)
+                val safeTag = tag.replace("$", ".")
+                val resource = parseAndroidResource(id, safeTag)
                 if (resource is AndroidResource.Widget) {
                     list.add(LayoutNodeItem(resource.id, resource.xmlType))
                 }
