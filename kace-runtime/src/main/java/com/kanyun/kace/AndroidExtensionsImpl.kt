@@ -26,7 +26,7 @@ class AndroidExtensionsImpl : AndroidExtensions {
 
     private fun initComponent(owner: AndroidExtensionsBase) {
         if (component == null) {
-            component = AndroidExtensionsComponent(owner) { destroy() }
+            component = AndroidExtensionsComponent(owner, this::onViewDestroy, this::onComponentDestroy)
         }
     }
 
@@ -42,7 +42,11 @@ class AndroidExtensionsImpl : AndroidExtensions {
         return cached?.getOrPut(id) { component!!.findViewById(id) } as T
     }
 
-    private fun destroy() {
+    private fun onViewDestroy() {
         cached?.clear()
+    }
+
+    private fun onComponentDestroy() {
+        component = null
     }
 }
