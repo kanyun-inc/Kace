@@ -27,18 +27,20 @@ sealed interface AndroidExtensionsComponent {
 
 fun AndroidExtensionsComponent(
     owner: AndroidExtensionsBase,
-    onDestroy: () -> Unit
+    onViewDestroy: () -> Unit,
+    onComponentDestroy: () -> Unit
 ): AndroidExtensionsComponent {
     return when (owner) {
-        is Activity -> AndroidExtensionsActivity(owner, onDestroy)
-        is Fragment -> AndroidExtensionsFragment(owner, onDestroy)
+        is Activity -> AndroidExtensionsActivity(owner, onViewDestroy, onComponentDestroy)
+        is Fragment -> AndroidExtensionsFragment(owner, onViewDestroy, onComponentDestroy)
         else -> throw UnsupportedOperationException()
     }
 }
 
 class AndroidExtensionsActivity(
     private val activity: Activity,
-    onDestroy: () -> Unit
+    onViewDestroy: () -> Unit,
+    onComponentDestroy: () -> Unit
 ) : AndroidExtensionsComponent {
 
     init {
@@ -46,7 +48,8 @@ class AndroidExtensionsActivity(
             activity.lifecycle.addObserver(object : KaceLifecycleObserver() {
                 override fun onDestroy(owner: LifecycleOwner) {
                     super.onDestroy(owner)
-                    onDestroy()
+                    onViewDestroy()
+                    onComponentDestroy()
                 }
             })
         }
@@ -59,7 +62,8 @@ class AndroidExtensionsActivity(
 
 class AndroidExtensionsFragment(
     private val fragment: Fragment,
-    onDestroy: () -> Unit
+    onViewDestroy: () -> Unit,
+    onComponentDestroy: () -> Unit
 ) : AndroidExtensionsComponent {
 
     init {
@@ -67,10 +71,16 @@ class AndroidExtensionsFragment(
             it?.lifecycle?.addObserver(object : KaceLifecycleObserver() {
                 override fun onDestroy(owner: LifecycleOwner) {
                     super.onDestroy(owner)
-                    onDestroy()
+                    onViewDestroy()
                 }
             })
         }
+        fragment.lifecycle.addObserver(object : KaceLifecycleObserver() {
+            override fun onDestroy(owner: LifecycleOwner) {
+                super.onDestroy(owner)
+                onComponentDestroy()
+            }
+        })
     }
 
     override fun <V : View?> findViewById(id: Int): V? {
