@@ -67,10 +67,11 @@ kace {
 The Kace currently supports the above four most commonly used types. Other types supported by kotlin-android-extensions such as android.app.Fragment, android.app.Dialog, kotlinx.android.extensions.LayoutContainer are deprecated or rarely used, currently not supported by the Kace
 
 ## Version compatible
-| Kace                 | Kotlin | AGP   | Gradle |
-|----------------------|--------|-------|--------|
-| 1.0.2                | 1.7.0  | 4.2.0 | 6.7.1  |
-| 1.8.0-1.0.2-SNAPSHOT | 1.8.0  | 4.2.0 | 6.8.3  |
+| Kace         | Kotlin        | AGP   | Gradle |
+|--------------|---------------|-------|--------|
+| 1.7.0-1.0.4  | 1.7.0         | 4.2.0 | 6.7.1  |
+| 1.8.0-1.0.4  | 1.8.0~1.8.10  | 4.2.0 | 6.8.3  |
+| 1.8.20-1.0.4 | 1.8.20 | 4.2.0 | 6.8.3  |
 
 Since the goal of the Kace is to help developers easily upgrade to Kotlin 1.8, the minimum supported version of Kotlin is relatively high
 
