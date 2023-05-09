@@ -74,3 +74,26 @@ android {
         implementation(project(":sample-lib"))
     }
 }
+
+kace {
+    customVariant = mapOf("debug" to listOf(file("src/debug/res000").absolutePath))
+    customVariant {
+        when {
+            "debug" in it.buildType.name -> mapOf(
+                "debug" to listOf(
+                    file("src/debug/res1").absolutePath,
+                    file("src/debug/res2").absolutePath
+                )
+            )
+
+            "release" in it.buildType.name -> mapOf(
+                "release" to listOf(
+                    file("src/release/res1").absolutePath,
+                    file("src/release/res2").absolutePath
+                )
+            )
+
+            else -> emptyMap()
+        }
+    }
+}
