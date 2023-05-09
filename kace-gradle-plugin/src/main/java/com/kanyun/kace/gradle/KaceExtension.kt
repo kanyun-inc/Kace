@@ -16,8 +16,15 @@
 
 package com.kanyun.kace.gradle
 
+import com.android.build.gradle.api.BaseVariant
+
 open class KaceExtension {
     var whiteList: List<String> = listOf()
     var blackList: List<String> = listOf()
     var customVariant: Map<String, List<String>> = emptyMap()
+    internal val customVariantCallbacks: ArrayList<(BaseVariant) -> Map<String, List<String>>> = ArrayList()
+
+    fun customVariant(block: (BaseVariant) -> Map<String, List<String>>) {
+        customVariantCallbacks += block
+    }
 }

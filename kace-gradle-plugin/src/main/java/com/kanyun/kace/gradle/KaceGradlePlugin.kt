@@ -110,7 +110,16 @@ class KaceGradlePlugin : Plugin<Project> {
         if (buildTypeName != variantName && buildTypeName != flavorName) {
             addSourceSetLayoutDir(extension, variantName, layoutDirList)
         }
-        addCustomVariantLayoutDir(kaceExtension.customVariant, layoutDirList)
+
+        val customVariant = kaceExtension.customVariantCallbacks.map { it.invoke(variant) }
+            .fold(HashMap<String, List<String>>(kaceExtension.customVariant)) { acc, customVariant ->
+                customVariant.forEach {
+                    acc.merge(it.key, it.value, List<String>::plus)
+                }
+                acc
+            }
+
+        addCustomVariantLayoutDir(customVariant, layoutDirList)
         return layoutDirList
     }
 
