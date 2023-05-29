@@ -16,15 +16,27 @@
 
 package com.kanyun.kace.compiler.utils
 
+import org.jetbrains.kotlin.javac.resolve.classId
 import org.jetbrains.kotlin.name.FqName
 
 const val ANDROID_EXTENSIONS_PACKAGE_NAME = "com.kanyun.kace"
 const val ANDROID_EXTENSIONS_CLASS_NAME = "AndroidExtensions"
 
 const val ANDROID_EXTENSIONS_FULL_NAME = "com.kanyun.kace.AndroidExtensions"
+val ANDROID_EXTENSIONS_CLASS_ID = classId("com.kanyun.kace", "AndroidExtensions")
+
 const val ANDROID_EXTENSIONS_BASE_FULL_NAME = "com.kanyun.kace.AndroidExtensionsBase"
-const val ANDROID_EXTENSIONS_IMPL_FULL_NAME = "com.kanyun.kace.AndroidExtensionsImpl"
-const val ANDROID_VIEW_FULL_NAME = "android.view.View"
+val ANDROID_EXTENSIONS_BASE_CLASS_ID = classId("com.kanyun.kace", "AndroidExtensionsBase")
+
+val ANDROID_EXTENSIONS_IMPL_CLASS_ID = classId("com.kanyun.kace", "AndroidExtensionsImpl")
+
+val ANDROID_VIEW_CLASS_ID = classId("android.view", "View")
+val ANDROID_ACTIVITY_CLASS_ID = classId("android.app", "Activity")
+val ANDROIDX_FRAGMENT_CLASS_ID = classId("androidx.fragment.app", "Fragment")
+
+val IMPLICIT_ANDROID_EXTENSIONS_CLASS_IDS = setOf(
+    ANDROID_ACTIVITY_CLASS_ID, ANDROIDX_FRAGMENT_CLASS_ID
+)
 
 val ANDROID_EXTENSIONS_FQNAME = FqName(ANDROID_EXTENSIONS_FULL_NAME)
 

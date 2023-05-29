@@ -71,3 +71,5 @@ fun IrFunction.irThis(): IrExpression {
         irDispatchReceiverParameter.symbol
     )
 }
+
+fun String.fqn(): FqName = FqName("org.jetbrains.kotlin.fir.plugin.$this")

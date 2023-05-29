@@ -13,6 +13,22 @@ import android.app.Activity;
 public class BaseActivity extends Activity {
 
 }
+// FILE: BaseKotlinActivity.kt
+package android.app
+
+import android.app.Activity
+
+open class BaseKotlinActivity : Activity() {
+
+}
+// FILE: Base2Activity.java
+package android.app;
+
+import android.app.Activity;
+
+public class Base2Activity extends BaseKotlinActivity {
+
+}
 // FILE: View.java
 package android.view;
 
@@ -67,6 +83,7 @@ import com.kanyun.kace.AndroidExtensionsImpl
 import android.view.View
 import android.app.Activity
 import android.app.BaseActivity
+import android.app.Base2Activity
 
 class MainActivity : AndroidExtensions by AndroidExtensionsImpl() {
 
@@ -84,12 +101,16 @@ class ThirdActivity : AndroidExtensions {
     }
 }
 
-class FourthActivity : Activity() {
+open class FourthActivity : Activity() {
 
 }
 
 
 class FifthActivity : BaseActivity() {
+
+}
+
+class SixthActivity : Base2Activity() {
 
 }
 
@@ -108,6 +129,9 @@ fun main() {
 
     val fifth = FifthActivity()
     println(fifth.findViewByIdCached<View>(fifth, 4))
+
+    val sixth = SixthActivity()
+    println(sixth.findViewByIdCached<View>(sixth, 7))
 }
 
 // EXPECT
@@ -124,6 +148,8 @@ class FourthActivity
 3
 class FifthActivity
 4
+class SixthActivity
+7
 // FILE: Main.kt.ir
 class MainActivity : AndroidExtensions {
     private val $$delegate_0: AndroidExtensionsImpl = AndroidExtensionsImpl()
@@ -143,7 +169,7 @@ class ThirdActivity : AndroidExtensions {
         return View("Third!!")
     }
 }
-class FourthActivity : Activity, AndroidExtensions {
+open class FourthActivity : Activity, AndroidExtensions {
     private var $$androidExtensionsImpl: AndroidExtensionsImpl = AndroidExtensionsImpl()
     override fun <T: View> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T? {
         return <this>.$$androidExtensionsImpl.findViewByIdCached(owner, id)
@@ -155,6 +181,7 @@ class FifthActivity : BaseActivity, AndroidExtensions {
         return <this>.$$androidExtensionsImpl.findViewByIdCached(owner, id)
     }
 }
+class SixthActivity : Base2Activity 
 fun main() {
     val main = MainActivity()
     println(main.findViewByIdCached(main, 0))
@@ -166,4 +193,6 @@ fun main() {
     println(fouth.findViewByIdCached(fouth, 3))
     val fifth = FifthActivity()
     println(fifth.findViewByIdCached(fifth, 4))
+    val sixth = SixthActivity()
+    println(sixth.findViewByIdCached(sixth, 7))
 }

@@ -25,6 +25,7 @@ import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.descriptors.findClassAcrossModuleDependencies
 import org.jetbrains.kotlin.js.descriptorUtils.getJetTypeFqName
+import org.jetbrains.kotlin.js.descriptorUtils.getKotlinTypeFqName
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -43,7 +44,7 @@ class KaceSyntheticResolveExtension : SyntheticResolveExtension {
         val superTypeNames = supertypes.asSequence().flatMap {
             listOf(it) + it.supertypes()
         }.map {
-            it.getJetTypeFqName(false)
+            it.getKotlinTypeFqName(false)
         }
 
         var shouldAddSuperType = false
