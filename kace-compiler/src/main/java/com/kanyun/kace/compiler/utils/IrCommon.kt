@@ -35,7 +35,7 @@ import org.jetbrains.kotlin.name.FqName
 fun IrClass.isSubclassOfFqName(fqName: String): Boolean =
     fqNameWhenAvailable?.asString() == fqName || superTypes.any {
         it.erasedUpperBound.isSubclassOfFqName(
-            fqName
+            fqName,
         )
     }
 
@@ -43,12 +43,12 @@ fun IrClass.addOverride(
     baseFqName: FqName,
     name: String,
     returnType: IrType,
-    modality: Modality = Modality.FINAL
+    modality: Modality = Modality.FINAL,
 ): IrSimpleFunction = addFunction(name, returnType, modality).apply {
     overriddenSymbols = superTypes.mapNotNull { superType ->
         superType.classOrNull?.owner?.takeIf { superClass ->
             superClass.isSubclassOfFqName(
-                baseFqName.asString()
+                baseFqName.asString(),
             )
         }
     }.flatMap { superClass ->
@@ -66,8 +66,11 @@ fun IrSimpleFunction.overridesFunctionIn(fqName: FqName): Boolean =
 fun IrFunction.irThis(): IrExpression {
     val irDispatchReceiverParameter = dispatchReceiverParameter!!
     return IrGetValueImpl(
-        startOffset, endOffset,
+        startOffset,
+        endOffset,
         irDispatchReceiverParameter.type,
-        irDispatchReceiverParameter.symbol
+        irDispatchReceiverParameter.symbol,
     )
 }
+
+fun String.fqn(): FqName = FqName("org.jetbrains.kotlin.fir.plugin.$this")

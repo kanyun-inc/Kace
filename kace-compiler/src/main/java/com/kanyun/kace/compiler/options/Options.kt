@@ -16,11 +16,11 @@
 
 package com.kanyun.kace.compiler.options
 
-import java.lang.ref.WeakReference
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CliOption
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.CompilerConfigurationKey
+import java.lang.ref.WeakReference
 
 object Options {
 
@@ -30,15 +30,18 @@ object Options {
         description: String,
         valueDescription: String,
         required: Boolean = false,
-        allowMultipleOccurrences: Boolean = false
+        allowMultipleOccurrences: Boolean = false,
     ) {
 
         private val key = CompilerConfigurationKey.create<T>(name)
         private var value: T? = null
 
         val option = CliOption(
-            name, valueDescription, description,
-            required, allowMultipleOccurrences
+            name,
+            valueDescription,
+            description,
+            required,
+            allowMultipleOccurrences,
         )
 
         fun config(value: String?, configuration: CompilerConfiguration) {
@@ -71,7 +74,7 @@ object Options {
         "isEnabled",
         false,
         "Enable this plugin.",
-        "<true/false>"
+        "<true/false>",
     )
 
     val allOptions = Options::class.java.declaredFields.filter {
@@ -83,7 +86,7 @@ object Options {
     fun processOption(
         option: AbstractCliOption,
         value: String,
-        configuration: CompilerConfiguration
+        configuration: CompilerConfiguration,
     ) {
         allOptions.firstOrNull {
             it.option == option

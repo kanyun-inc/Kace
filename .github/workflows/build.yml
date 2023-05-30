@@ -33,9 +33,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Check spotless
-        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache
-
       - name: Run local tests
         run: ./gradlew :kace-compiler:test
 
@@ -47,6 +44,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
+
+      - name: Check spotless
+        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache
 
       - name: Test AGP compatibility
         run: chmod +x ./test_agp.sh && ./test_agp.sh

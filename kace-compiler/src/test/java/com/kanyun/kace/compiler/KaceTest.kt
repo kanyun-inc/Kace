@@ -26,26 +26,35 @@ import org.junit.Test
 class KaceTest {
 
     @Test
-    fun basic() {
-        testBase("basic.txt")
+    fun k1() {
+        testBase("K1.txt", false)
+    }
+
+    @Test
+    fun k2() {
+        testBase("K2.txt", true)
     }
 
     @OptIn(ExperimentalCompilerApi::class)
-    private fun testBase(fileName: String) {
+    private fun testBase(fileName: String, useK2: Boolean) {
         val loader = FileBasedModuleInfoLoader("testData/$fileName")
         val sourceModuleInfos = loader.loadSourceModuleInfos()
 
         Options.isEnabled.set(true)
 
         val modules = sourceModuleInfos.map {
-            KotlinModule(it, compilerPluginRegistrars = listOf(KaceCompilerPluginRegistrar()))
+            KotlinModule(it, compilerPluginRegistrars = listOf(KaceCompilerPluginRegistrar()), supportK2 = true).also {
+                if (useK2) {
+                    it.languageVersion = "2.0"
+                }
+            }
         }
 
         modules.checkResult(
             loader.loadExpectModuleInfos(),
             executeEntries = true,
             checkCompilerOutput = true,
-            checkGeneratedIr = true
+            checkGeneratedIr = true,
         )
     }
 }

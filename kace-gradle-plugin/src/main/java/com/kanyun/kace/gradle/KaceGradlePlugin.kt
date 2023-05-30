@@ -26,10 +26,10 @@ import com.kanyun.kace.gradle.utils.addSourceSetLayoutDir
 import com.kanyun.kace.gradle.utils.configSourceSetDir
 import com.kanyun.kace.gradle.utils.getApplicationPackage
 import com.kanyun.kace.gradle.utils.withAllPlugins
-import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
 
 class KaceGradlePlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -46,8 +46,8 @@ class KaceGradlePlugin : Plugin<Project> {
 
             configuration.dependencies.add(
                 project.dependencies.create(
-                    "${BuildConfig.KOTLIN_PLUGIN_GROUP}:kace-runtime:${BuildConfig.KOTLIN_PLUGIN_VERSION}"
-                )
+                    "${BuildConfig.KOTLIN_PLUGIN_GROUP}:kace-runtime:${BuildConfig.KOTLIN_PLUGIN_VERSION}",
+                ),
             )
         }
     }
@@ -65,7 +65,8 @@ class KaceGradlePlugin : Plugin<Project> {
                 target.projectDir.toPath().relativize(sourceOutputDir.toPath()).toString()
             (compileKotlin as KotlinCompile).source(relativePath)
             val task = target.tasks.register(
-                "generate${variantCapitalizeName}KaceCode", KaceGenerateTask::class.java
+                "generate${variantCapitalizeName}KaceCode",
+                KaceGenerateTask::class.java,
             ) { task ->
                 val mainSourceSet = extension.sourceSets.getByName("main")
                 val layoutDirList = getLayoutDirList(extension, variant, kaceExtension)
@@ -92,7 +93,7 @@ class KaceGradlePlugin : Plugin<Project> {
     private fun getLayoutDirList(
         extension: BaseExtension,
         variant: BaseVariant,
-        kaceExtension: KaceExtension
+        kaceExtension: KaceExtension,
     ): List<LayoutDir> {
         val layoutDirList = mutableListOf<LayoutDir>()
         val buildTypeName = variant.buildType.name
@@ -125,7 +126,7 @@ class KaceGradlePlugin : Plugin<Project> {
 
     private fun configVariants(
         target: Project,
-        action: (BaseExtension, BaseVariant) -> Unit
+        action: (BaseExtension, BaseVariant) -> Unit,
     ) {
         target.withAllPlugins("com.android.library") {
             val extension = target.extensions.getByType(LibraryExtension::class.java)

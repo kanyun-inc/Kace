@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-val ktlintVersion = "0.43.0"
+val ktlintVersion = "0.49.1"
 
 initscript {
-    val spotlessVersion = "6.11.0"
+    val spotlessVersion = "6.19.0"
 
     repositories {
         mavenCentral()
@@ -38,7 +38,9 @@ rootProject {
                 ktlint(ktlintVersion).userData(
                     mapOf(
                         "android" to "true",
-                        "max_line_length" to "200"
+                        "max_line_length" to "200",
+                        "ij_kotlin_allow_trailing_comma" to "false",
+                        "ij_kotlin_allow_trailing_comma_on_call_site" to "false"
                     )
                 )
                 licenseHeaderFile(rootProject.file("spotless/copyright.kt"))

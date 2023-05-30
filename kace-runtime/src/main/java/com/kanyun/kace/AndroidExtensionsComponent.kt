@@ -28,7 +28,7 @@ sealed interface AndroidExtensionsComponent {
 fun AndroidExtensionsComponent(
     owner: AndroidExtensionsBase,
     onViewDestroy: () -> Unit,
-    onComponentDestroy: () -> Unit
+    onComponentDestroy: () -> Unit,
 ): AndroidExtensionsComponent {
     return when (owner) {
         is Activity -> AndroidExtensionsActivity(owner, onViewDestroy, onComponentDestroy)
@@ -40,7 +40,7 @@ fun AndroidExtensionsComponent(
 class AndroidExtensionsActivity(
     private val activity: Activity,
     onViewDestroy: () -> Unit,
-    onComponentDestroy: () -> Unit
+    onComponentDestroy: () -> Unit,
 ) : AndroidExtensionsComponent {
 
     init {
@@ -63,7 +63,7 @@ class AndroidExtensionsActivity(
 class AndroidExtensionsFragment(
     private val fragment: Fragment,
     onViewDestroy: () -> Unit,
-    onComponentDestroy: () -> Unit
+    onComponentDestroy: () -> Unit,
 ) : AndroidExtensionsComponent {
 
     init {

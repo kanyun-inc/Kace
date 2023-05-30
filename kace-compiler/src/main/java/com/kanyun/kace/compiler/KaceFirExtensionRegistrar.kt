@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package com.kanyun.kace.gradle.utils
+package com.kanyun.kace.compiler
 
-internal sealed class AndroidResource(
-    val id: ResourceIdentifier,
-) {
-    class Widget(
-        id: ResourceIdentifier,
-        val xmlType: String,
-    ) : AndroidResource(id)
+import org.jetbrains.kotlin.fir.extensions.FirExtensionRegistrar
 
-    class Fragment(
-        id: ResourceIdentifier,
-    ) : AndroidResource(id)
+class KaceFirExtensionRegistrar : FirExtensionRegistrar() {
+    override fun ExtensionRegistrarContext.configurePlugin() {
+        +::KaceFirSupertypeGenerationExtension
+    }
 }
