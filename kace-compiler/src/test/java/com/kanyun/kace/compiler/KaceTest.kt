@@ -54,7 +54,7 @@ class KaceTest {
             loader.loadExpectModuleInfos(),
             executeEntries = true,
             checkCompilerOutput = true,
-            checkGeneratedIr = true
+            checkGeneratedIr = true,
         )
     }
 }

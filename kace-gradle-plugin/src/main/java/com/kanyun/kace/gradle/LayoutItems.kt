@@ -22,7 +22,7 @@ import java.io.File
 
 internal data class LayoutNodeItem constructor(
     val identifier: ResourceIdentifier,
-    val xmlType: String
+    val xmlType: String,
 ) {
     val viewNameWithPackage: String
         get() {
@@ -50,7 +50,7 @@ data class LayoutItem(
     val destDir: File,
     val layoutFile: File,
     val variantName: String,
-    private val kaePackagePrefix: String = "kotlinx.android.synthetic"
+    private val kaePackagePrefix: String = "kotlinx.android.synthetic",
 ) {
     private val kaePackage: String
         get() = "$kaePackagePrefix.$variantName"
@@ -70,5 +70,5 @@ data class LayoutItem(
 
 internal data class LayoutDir(
     val layoutDir: File,
-    val layoutVariantName: String
+    val layoutVariantName: String,
 )

@@ -20,14 +20,14 @@ import com.kanyun.kace.BuildConfig
 import com.kanyun.kace.gradle.utils.appendLine
 import com.kanyun.kace.gradle.utils.initSAX
 import com.kanyun.kace.gradle.utils.parseXml
-import java.io.File
-import javax.xml.parsers.SAXParser
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.slf4j.LoggerFactory
+import java.io.File
+import javax.xml.parsers.SAXParser
 
 abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
     interface Parameters : WorkParameters {
@@ -44,7 +44,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
         val item = LayoutItem(
             parameters.destDir.get().asFile,
             parameters.layoutFile.get().asFile,
-            parameters.variantName.get()
+            parameters.variantName.get(),
         )
         val namespace = parameters.namespace.get()
         val file = item.layoutFile
@@ -56,7 +56,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
     private fun writeActivityFragmentExtension(
         layoutNodeItems: List<LayoutNodeItem>,
         item: LayoutItem,
-        namespace: String
+        namespace: String,
     ) {
         item.targetDir.mkdirs()
 
@@ -84,7 +84,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
     private fun writeViewExtension(
         layoutNodeItems: List<LayoutNodeItem>,
         item: LayoutItem,
-        namespace: String
+        namespace: String,
     ) {
         item.targetViewExtensionDir.mkdirs()
 

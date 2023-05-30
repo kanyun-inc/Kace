@@ -17,11 +17,11 @@
 package com.kanyun.kace.gradle.utils
 
 import com.kanyun.kace.gradle.LayoutNodeItem
+import org.slf4j.Logger
 import java.io.File
 import java.io.FileInputStream
 import javax.xml.parsers.SAXParser
 import javax.xml.parsers.SAXParserFactory
-import org.slf4j.Logger
 
 internal fun parseXml(saxParser: SAXParser, file: File, logger: Logger): List<LayoutNodeItem> {
     val inputStream = FileInputStream(file)
@@ -35,7 +35,7 @@ internal fun parseXml(saxParser: SAXParser, file: File, logger: Logger): List<La
                 if (resource is AndroidResource.Widget) {
                     list.add(LayoutNodeItem(resource.id, resource.xmlType))
                 }
-            }
+            },
         )
     } catch (e: Exception) {
         logger.error("Layout Parse error: ${e.message} at ${file.absolutePath}}.")

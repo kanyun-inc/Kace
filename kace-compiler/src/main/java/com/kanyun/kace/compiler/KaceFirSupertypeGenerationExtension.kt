@@ -43,12 +43,12 @@ import org.jetbrains.kotlin.name.ClassId
  */
 @OptIn(SymbolInternals::class)
 class KaceFirSupertypeGenerationExtension(
-    session: FirSession
+    session: FirSession,
 ) : FirSupertypeGenerationExtension(session) {
 
     context(TypeResolveServiceContainer) override fun computeAdditionalSupertypes(
         classLikeDeclaration: FirClassLikeDeclaration,
-        resolvedSupertypes: List<FirResolvedTypeRef>
+        resolvedSupertypes: List<FirResolvedTypeRef>,
     ): List<FirResolvedTypeRef> {
         var shouldAddSuperType = false
         OUTER@ for (superTypeRef in resolvedSupertypes) {
@@ -71,9 +71,9 @@ class KaceFirSupertypeGenerationExtension(
             buildResolvedTypeRef {
                 type = ANDROID_EXTENSIONS_CLASS_ID.constructClassLikeType(
                     emptyArray(),
-                    isNullable = false
+                    isNullable = false,
                 )
-            }
+            },
         )
     }
 

@@ -24,7 +24,6 @@ import com.kanyun.kace.compiler.utils.IMPLICIT_ANDROID_EXTENSIONS_TYPES
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.descriptors.findClassAcrossModuleDependencies
-import org.jetbrains.kotlin.js.descriptorUtils.getJetTypeFqName
 import org.jetbrains.kotlin.js.descriptorUtils.getKotlinTypeFqName
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
@@ -59,8 +58,8 @@ class KaceSyntheticResolveExtension : SyntheticResolveExtension {
         val androidExtensionsType = thisDescriptor.module.findClassAcrossModuleDependencies(
             ClassId(
                 FqName(ANDROID_EXTENSIONS_PACKAGE_NAME),
-                Name.identifier(ANDROID_EXTENSIONS_CLASS_NAME)
-            )
+                Name.identifier(ANDROID_EXTENSIONS_CLASS_NAME),
+            ),
         )
 
         checkNotNull(androidExtensionsType) {
@@ -70,8 +69,9 @@ class KaceSyntheticResolveExtension : SyntheticResolveExtension {
         supertypes.add(
             KotlinTypeFactory.simpleNotNullType(
                 TypeAttributes.Empty,
-                androidExtensionsType, emptyList()
-            )
+                androidExtensionsType,
+                emptyList(),
+            ),
         )
     }
 }

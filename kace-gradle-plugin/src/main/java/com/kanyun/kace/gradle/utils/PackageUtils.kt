@@ -18,15 +18,15 @@ package com.kanyun.kace.gradle.utils
 
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.api.AndroidSourceSet
-import java.io.File
-import javax.xml.parsers.DocumentBuilderFactory
 import org.gradle.api.Project
 import org.w3c.dom.Document
+import java.io.File
+import javax.xml.parsers.DocumentBuilderFactory
 
 internal fun getApplicationPackage(
     androidExtension: BaseExtension,
     project: Project,
-    mainSourceSet: AndroidSourceSet
+    mainSourceSet: AndroidSourceSet,
 ): String {
     val manifestFile = mainSourceSet.manifest.srcFile
     val applicationPackage = getApplicationPackage(androidExtension, manifestFile)
@@ -34,7 +34,7 @@ internal fun getApplicationPackage(
     if (applicationPackage == null) {
         project.logger.warn(
             "Application package name is not present in the manifest file " +
-                "(${manifestFile.absolutePath})"
+                "(${manifestFile.absolutePath})",
         )
 
         return ""

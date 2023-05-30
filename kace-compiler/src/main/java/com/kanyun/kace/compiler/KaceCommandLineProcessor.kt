@@ -36,6 +36,6 @@ class KaceCommandLineProcessor : CommandLineProcessor {
     override fun processOption(
         option: AbstractCliOption,
         value: String,
-        configuration: CompilerConfiguration
+        configuration: CompilerConfiguration,
     ) = Options.processOption(option, value, configuration)
 }

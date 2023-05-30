@@ -62,13 +62,13 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                 // private val $$androidExtensionsImpl = AndroidExtensionsImpl()
                 val androidExtensionsField = declaration.addField(
                     DELEGATE_FIELD_NAME,
-                    androidExtensionImpl.defaultType
+                    androidExtensionImpl.defaultType,
                 ).apply {
                     initializer = DeclarationIrBuilder(
                         context,
                         symbol,
                         symbol.owner.startOffset,
-                        symbol.owner.endOffset
+                        symbol.owner.endOffset,
                     ).run {
                         irExprBody(irCall(androidExtensionImpl.constructors.first()))
                     }
@@ -78,7 +78,7 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                 declaration.addOverride(
                     ANDROID_EXTENSIONS_FQNAME,
                     FIND_VIEW_BY_ID_CACHED_NAME,
-                    IrUninitializedType
+                    IrUninitializedType,
                 ).apply {
                     val parameterT = addTypeParameter("T", context.typeOfView())
                     returnType = parameterT.defaultType.makeNullable()
@@ -90,22 +90,22 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                         context,
                         Scope(this.symbol),
                         SYNTHETIC_OFFSET,
-                        SYNTHETIC_OFFSET
+                        SYNTHETIC_OFFSET,
                     ).apply {
                         val androidExtensionsValue = irGetField(irThis(), androidExtensionsField)
                         +irReturn(
                             irCall(
-                                androidExtensionImpl.owner.findViewByIdCached(this@KaceIrTransformer.context)!!.symbol
+                                androidExtensionImpl.owner.findViewByIdCached(this@KaceIrTransformer.context)!!.symbol,
                             ).apply {
                                 dispatchReceiver = androidExtensionsValue
 
                                 valueParameters.forEachIndexed { index, irValueParameter ->
                                     putValueArgument(
                                         index,
-                                        irGet(irValueParameter.type, irValueParameter.symbol)
+                                        irGet(irValueParameter.type, irValueParameter.symbol),
                                     )
                                 }
-                            }
+                            },
                         )
                     }.doBuild()
                 }

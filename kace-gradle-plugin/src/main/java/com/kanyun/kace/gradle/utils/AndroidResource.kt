@@ -17,14 +17,14 @@
 package com.kanyun.kace.gradle.utils
 
 internal sealed class AndroidResource(
-    val id: ResourceIdentifier
+    val id: ResourceIdentifier,
 ) {
     class Widget(
         id: ResourceIdentifier,
-        val xmlType: String
+        val xmlType: String,
     ) : AndroidResource(id)
 
     class Fragment(
-        id: ResourceIdentifier
+        id: ResourceIdentifier,
     ) : AndroidResource(id)
 }

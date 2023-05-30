@@ -35,14 +35,15 @@ val ANDROID_ACTIVITY_CLASS_ID = classId("android.app", "Activity")
 val ANDROIDX_FRAGMENT_CLASS_ID = classId("androidx.fragment.app", "Fragment")
 
 val IMPLICIT_ANDROID_EXTENSIONS_CLASS_IDS = setOf(
-    ANDROID_ACTIVITY_CLASS_ID, ANDROIDX_FRAGMENT_CLASS_ID
+    ANDROID_ACTIVITY_CLASS_ID,
+    ANDROIDX_FRAGMENT_CLASS_ID,
 )
 
 val ANDROID_EXTENSIONS_FQNAME = FqName(ANDROID_EXTENSIONS_FULL_NAME)
 
 val IMPLICIT_ANDROID_EXTENSIONS_TYPES = setOf(
     "android.app.Activity",
-    "androidx.fragment.app.Fragment"
+    "androidx.fragment.app.Fragment",
 )
 
 const val FIND_VIEW_BY_ID_CACHED_NAME = "findViewByIdCached"
