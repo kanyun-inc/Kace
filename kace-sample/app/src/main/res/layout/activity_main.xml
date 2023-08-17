@@ -43,4 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
+    <com.kanyun.kace.sample.demo.GenericView
+        android:id="@+id/genericView"
+        android:layout_width="match_parent"
+        android:background="@android:color/holo_blue_bright"
+        android:layout_height="30dp"/>
+
 </LinearLayout>
