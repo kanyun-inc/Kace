@@ -93,12 +93,13 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
                 writer.appendLine("package ${item.targetFilePackageName}.view")
                 writer.newLine()
                 writer.appendLine("import android.view.View")
+                writer.appendLine("import com.kanyun.kace.KaceViewUtils")
                 writer.appendLine("import $namespace.R")
                 writer.newLine()
 
                 layoutNodeItems.forEach { item ->
                     writer.appendLine("internal inline val View.${item.viewId}")
-                    writer.appendLine("    get() = findViewById<${item.viewNameWithPackage}>(R.id.${item.viewId})")
+                    writer.appendLine("    get() = KaceViewUtils.findViewById(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
                     writer.newLine()
                 }
             }
