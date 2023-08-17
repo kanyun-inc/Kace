@@ -71,7 +71,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
 
             layoutNodeItems.forEach { item ->
                 writer.appendLine("private inline val AndroidExtensionsBase.${item.viewId}")
-                writer.appendLine("    get() = findViewByIdCached<${item.viewNameWithPackage}>(this, R.id.${item.viewId})")
+                writer.appendLine("    get() = findViewByIdCached(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
                 writer.appendLine("internal inline val Activity.${item.viewId}")
                 writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
                 writer.appendLine("internal inline val Fragment.${item.viewId}")

@@ -36,7 +36,7 @@ class AndroidExtensionsImpl : AndroidExtensions {
         }
     }
 
-    override fun <T : View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T {
+    override fun <T : View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int, viewClass: Class<T>): T {
         initComponent(owner)
         initCachedHashMap()
         return cached?.getOrPut(id) { component!!.findViewById(id) } as T

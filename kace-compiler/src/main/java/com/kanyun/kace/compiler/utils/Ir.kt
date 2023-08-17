@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.types.classFqName
+import org.jetbrains.kotlin.ir.types.classifierOrNull
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.functions
 
@@ -32,10 +33,11 @@ fun IrClass.findViewByIdCached(pluginContext: IrPluginContext): IrSimpleFunction
 
 fun IrFunction.isFindViewByIdCached(pluginContext: IrPluginContext): Boolean {
     return name.identifier == FIND_VIEW_BY_ID_CACHED_NAME &&
-        valueParameters.size == 2 &&
-        valueParameters[0].type ==
-        pluginContext.referenceClass(ANDROID_EXTENSIONS_BASE_CLASS_ID)?.defaultType &&
-        valueParameters[1].type == pluginContext.symbols.int.defaultType
+        valueParameters.size == 3 &&
+        valueParameters[0].type == pluginContext.typeOfAndroidExtensionsBase() &&
+        valueParameters[1].type == pluginContext.symbols.int.defaultType &&
+        // java.lang.Class<T> -> java.lang.Class
+        valueParameters[2].type.classifierOrNull?.defaultType == pluginContext.typeOfJavaClass()
 }
 
 fun IrClass.isAndroidExtensions(): Boolean {
@@ -46,6 +48,8 @@ fun IrPluginContext.typeOfAndroidExtensionsBase() =
     referenceClass(ANDROID_EXTENSIONS_BASE_CLASS_ID)!!.defaultType
 
 fun IrPluginContext.typeOfView() = referenceClass(ANDROID_VIEW_CLASS_ID)!!.defaultType
+
+fun IrPluginContext.typeOfJavaClass() = referenceClass(JAVA_CLASS_CLASS_ID)!!.defaultType
 
 fun IrPluginContext.symbolOfAndroidExtensionImpl() =
     referenceClass(ANDROID_EXTENSIONS_IMPL_CLASS_ID)!!

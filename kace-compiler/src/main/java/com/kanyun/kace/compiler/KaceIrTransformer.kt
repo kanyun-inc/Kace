@@ -25,6 +25,7 @@ import com.kanyun.kace.compiler.utils.irThis
 import com.kanyun.kace.compiler.utils.isAndroidExtensions
 import com.kanyun.kace.compiler.utils.symbolOfAndroidExtensionImpl
 import com.kanyun.kace.compiler.utils.typeOfAndroidExtensionsBase
+import com.kanyun.kace.compiler.utils.typeOfJavaClass
 import com.kanyun.kace.compiler.utils.typeOfView
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
@@ -85,6 +86,7 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
 
                     addValueParameter("owner", context.typeOfAndroidExtensionsBase())
                     addValueParameter("id", context.symbols.int.defaultType)
+                    addValueParameter("viewClass", context.typeOfJavaClass())
 
                     body = IrBlockBodyBuilder(
                         context,

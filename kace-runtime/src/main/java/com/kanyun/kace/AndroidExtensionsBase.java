@@ -23,6 +23,6 @@ public interface AndroidExtensionsBase {
     /**
      * It is necessary to write this in Java, because we want a platform type here as the return type.
      */
-    <T extends View> T findViewByIdCached(AndroidExtensionsBase owner, int id);
+    <T extends View> T findViewByIdCached(AndroidExtensionsBase owner, int id, Class<T> viewClass);
 
 }
