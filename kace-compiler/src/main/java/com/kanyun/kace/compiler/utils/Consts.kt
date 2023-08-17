@@ -34,6 +34,8 @@ val ANDROID_VIEW_CLASS_ID = classId("android.view", "View")
 val ANDROID_ACTIVITY_CLASS_ID = classId("android.app", "Activity")
 val ANDROIDX_FRAGMENT_CLASS_ID = classId("androidx.fragment.app", "Fragment")
 
+val JAVA_CLASS_CLASS_ID = classId("java.lang", "Class")
+
 val IMPLICIT_ANDROID_EXTENSIONS_CLASS_IDS = setOf(
     ANDROID_ACTIVITY_CLASS_ID,
     ANDROIDX_FRAGMENT_CLASS_ID,

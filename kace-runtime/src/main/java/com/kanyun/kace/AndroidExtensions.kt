@@ -20,6 +20,6 @@ import android.view.View
 
 interface AndroidExtensions : AndroidExtensionsBase {
 
-    override fun <T : View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int): T =
+    override fun <T : View?> findViewByIdCached(owner: AndroidExtensionsBase, id: Int, viewClass: Class<T>): T? =
         error("Never called.")
 }
