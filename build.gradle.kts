@@ -9,7 +9,8 @@ plugins {
 
 allprojects {
     repositories {
-        maven { setUrl("https://mirrors.tencent.com/nexus/repository/maven-public/") }
+        mavenCentral()
+        google()
         maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
     }
 
