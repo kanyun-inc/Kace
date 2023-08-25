@@ -18,10 +18,11 @@ package com.kanyun.kace.compiler
 
 import com.bennyhuo.kotlin.compiletesting.extensions.module.KotlinModule
 import com.bennyhuo.kotlin.compiletesting.extensions.module.checkResult
-import com.bennyhuo.kotlin.compiletesting.extensions.source.FileBasedModuleInfoLoader
+import com.bennyhuo.kotlin.compiletesting.extensions.source.TextBasedModuleInfoLoader
 import com.kanyun.kace.compiler.options.Options
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.Test
+import java.io.File
 
 class KaceTest {
 
@@ -37,7 +38,9 @@ class KaceTest {
 
     @OptIn(ExperimentalCompilerApi::class)
     private fun testBase(fileName: String, useK2: Boolean) {
-        val loader = FileBasedModuleInfoLoader("testData/$fileName")
+        val source = File("testData/source.txt").readText()
+        val expect = File("testData/$fileName").readText()
+        val loader = TextBasedModuleInfoLoader("$source\n$expect")
         val sourceModuleInfos = loader.loadSourceModuleInfos()
 
         Options.isEnabled.set(true)
