@@ -38,6 +38,25 @@ pluginManagement {
 }
 ```
 
+如果你想要尝试 SNAPSHOT 版本，你需要在工程中配置 SNAPSHOT 仓库：
+
+```kotlin
+buildscript {
+    // for plugins
+    repositories {
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots") 
+    }
+    ...
+}
+
+// for project dependencies
+allprojects {
+    repositories {
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
+    }    
+}
+```
+
 ### 2. 应用插件
 移除`kotlin-android-extensions`插件，并添加以下代码
 
@@ -67,11 +86,11 @@ kace {
 Kace 目前支持了以上四种最常用的类型，其他 kotlin-android-extensions 支持的类型如 android.app.Fragment, android.app.Dialog, kotlinx.android.extensions.LayoutContainer 等，由于被废弃或者使用较少，Kace 目前没有做支持
 
 ## 版本兼容
-| Kace                 | Kotlin | AGP   | Gradle |
-|----------------------|--------|-------|--------|
+| Kace         | Kotlin | AGP   | Gradle |
+|--------------|--------|-------|--------|
 | 1.7.0-1.0.4  | 1.7.0         | 4.2.0 | 6.7.1  |
 | 1.8.0-1.0.4  | 1.8.0~1.8.10  | 4.2.0 | 6.8.3  |
-| 1.8.20-1.0.4 | 1.8.20 | 4.2.0 | 6.8.3  |
+| 1.8.20-1.2.0 | 1.8.20 | 4.2.0 | 6.8.3  |
 
 由于 Kace 的目标是帮助开发者更方便地迁移到 Kotlin 1.8，因此 Kotlin 最低支持版本比较高
 
