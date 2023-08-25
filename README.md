@@ -38,6 +38,25 @@ pluginManagement {
 }
 ````
 
+If you want to try the snapshots, add the snapshot repository: 
+
+```kotlin
+buildscript {
+    // for plugins
+    repositories {
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots") 
+    }
+    ...
+}
+
+// for project dependencies
+allprojects {
+    repositories {
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
+    }    
+}
+```
+
 ### 2. Apply the plugin
 Remove the `kotlin-android-extensions` plugin and add the following code
 
@@ -67,12 +86,13 @@ kace {
 The Kace currently supports the above four most commonly used types. Other types supported by kotlin-android-extensions such as android.app.Fragment, android.app.Dialog, kotlinx.android.extensions.LayoutContainer are deprecated or rarely used, currently not supported by the Kace
 
 ## Version compatible
-| Kace         | Kotlin       | AGP   | Gradle |
-|--------------|--------------|-------|--------|
-| 1.7.0-1.0.4  | 1.7.0        | 4.2.0 | 6.7.1  |
-| 1.8.0-1.0.4  | 1.8.0~1.8.10 | 4.2.0 | 6.8.3  |
-| 1.8.20-1.1.0 | 1.8.20       | 4.2.0 | 6.8.3  |
-| 1.9.0-1.1.0  | 1.9.0        | 4.2.2 | 6.8.3  |
+| Kace                  | Kotlin       | AGP   | Gradle |
+|-----------------------|--------------|-------|--------|
+| 1.7.0-1.0.4           | 1.7.0        | 4.2.0 | 6.7.1  |
+| 1.8.0-1.0.4           | 1.8.0~1.8.10 | 4.2.0 | 6.8.3  |
+| 1.8.20-1.2.0          | 1.8.20       | 4.2.0 | 6.8.3  |
+| 1.9.0-1.2.0-SNAPSHOT  | 1.9.0        | 4.2.2 | 6.8.3  |
+| 1.9.10-1.2.0-SNAPSHOT | 1.9.10       | 4.2.2 | 6.8.3  |
 
 Since the goal of the Kace is to help developers easily upgrade to Kotlin 1.8, the minimum supported version of Kotlin is relatively high
 
