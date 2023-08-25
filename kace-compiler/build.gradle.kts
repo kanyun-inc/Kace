@@ -35,12 +35,11 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
 
-    testImplementation("com.bennyhuo.kotlin:kotlin-compile-testing-extensions:1.8.0.1")
+    testImplementation("com.bennyhuo.kotlin:kotlin-compile-testing-extensions:1.8.20-1.1.0")
 }
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions.freeCompilerArgs += listOf(
-    "-Xjvm-default=enable",
     "-opt-in=kotlin.RequiresOptIn",
     "-Xcontext-receivers"
 )

@@ -71,7 +71,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
 
             layoutNodeItems.forEach { item ->
                 writer.appendLine("private inline val AndroidExtensionsBase.${item.viewId}")
-                writer.appendLine("    get() = findViewByIdCached<${item.viewNameWithPackage}>(this, R.id.${item.viewId})")
+                writer.appendLine("    get() = findViewByIdCached(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
                 writer.appendLine("internal inline val Activity.${item.viewId}")
                 writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
                 writer.appendLine("internal inline val Fragment.${item.viewId}")
@@ -93,12 +93,13 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
                 writer.appendLine("package ${item.targetFilePackageName}.view")
                 writer.newLine()
                 writer.appendLine("import android.view.View")
+                writer.appendLine("import com.kanyun.kace.KaceViewUtils")
                 writer.appendLine("import $namespace.R")
                 writer.newLine()
 
                 layoutNodeItems.forEach { item ->
                     writer.appendLine("internal inline val View.${item.viewId}")
-                    writer.appendLine("    get() = findViewById<${item.viewNameWithPackage}>(R.id.${item.viewId})")
+                    writer.appendLine("    get() = KaceViewUtils.findViewById(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
                     writer.newLine()
                 }
             }

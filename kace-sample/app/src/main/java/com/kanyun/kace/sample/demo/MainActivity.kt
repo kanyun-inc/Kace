@@ -17,6 +17,7 @@
 package com.kanyun.kace.sample.demo
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity(){
         }
 
         button1.text2?.text = "test text"
+
+        genericView.setBackgroundColor(Color.YELLOW)
     }
 
     override fun onDestroy() {
