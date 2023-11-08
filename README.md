@@ -3,6 +3,7 @@ English | **[简体中文](README_zh.md)**
 # Kace
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Language](https://img.shields.io/badge/Language-Kotlin-green)](https://kotlinlang.org/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.kanyun.kace/kace-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.kanyun.kace/kace-gradle-plugin)
 
 > The Kace means kotlin-android-compatible-extensions, a framework for assisting in the seamless migration from kotlin-android-extensions
 
@@ -72,7 +73,8 @@ The Kace currently supports the above four most commonly used types. Other types
 | 1.7.0-1.0.4  | 1.7.0        | 4.2.0 | 6.7.1  |
 | 1.8.0-1.0.4  | 1.8.0~1.8.10 | 4.2.0 | 6.8.3  |
 | 1.8.20-1.1.0 | 1.8.20       | 4.2.0 | 6.8.3  |
-| 1.9.0-1.1.0  | 1.9.0        | 4.2.2 | 6.8.3  |
+| 1.9.0-1.2.0  | 1.9.0~1.9.20 | 4.2.2 | 6.8.3  |
+| 1.9.20-1.2.0 | 1.9.20       | 4.2.2 | 6.8.3  |
 
 Since the goal of the Kace is to help developers easily upgrade to Kotlin 1.8, the minimum supported version of Kotlin is relatively high
 
