@@ -28,7 +28,7 @@ class KaceTest {
 
     @Test
     fun k1() {
-        testBase( false)
+        testBase(false)
     }
 
     @Test
