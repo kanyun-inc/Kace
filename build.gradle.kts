@@ -2,7 +2,7 @@
 plugins {
     id("com.android.application") version "4.2.2" apply false
     id("com.android.library") version "4.2.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.20" apply false
     id("com.vanniktech.maven.publish") version "0.18.0" apply false
     id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
 }
@@ -11,7 +11,7 @@ allprojects {
     repositories {
         mavenCentral()
         google()
-        maven { setUrl("https://oss.sonatype.org/content/repositories/snapshots/") }
+        maven { setUrl("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
     }
 
     apply(plugin = "com.vanniktech.maven.publish")
