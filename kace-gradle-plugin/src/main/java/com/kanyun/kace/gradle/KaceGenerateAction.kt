@@ -50,7 +50,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
         val file = item.layoutFile
         val layoutNodeItems = parseXml(saxParser, file, logger)
         writeActivityFragmentExtension(layoutNodeItems, item, namespace)
-        writeViewExtension(layoutNodeItems, item, namespace)
+        writeViewDialogExtension(layoutNodeItems, item, namespace)
     }
 
     private fun writeActivityFragmentExtension(
@@ -81,7 +81,7 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
         }
     }
 
-    private fun writeViewExtension(
+    private fun writeViewDialogExtension(
         layoutNodeItems: List<LayoutNodeItem>,
         item: LayoutItem,
         namespace: String,
@@ -94,12 +94,16 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
                 writer.newLine()
                 writer.appendLine("import android.view.View")
                 writer.appendLine("import com.kanyun.kace.KaceViewUtils")
+                writer.appendLine("import android.app.Dialog")
+                writer.appendLine("import com.kanyun.kace.KaceDialogUtils")
                 writer.appendLine("import $namespace.R")
                 writer.newLine()
 
                 layoutNodeItems.forEach { item ->
                     writer.appendLine("internal inline val View.${item.viewId}")
                     writer.appendLine("    get() = KaceViewUtils.findViewById(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
+                    writer.appendLine("internal inline val Dialog.${item.viewId}")
+                    writer.appendLine("    get() = KaceDialogUtils.findViewById(this, R.id.${item.viewId}, ${item.viewNameWithPackage}::class.java)")
                     writer.newLine()
                 }
             }
