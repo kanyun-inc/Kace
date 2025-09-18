@@ -19,6 +19,7 @@ package com.kanyun.kace.compiler.utils
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.classifierOrNull
@@ -32,12 +33,13 @@ fun IrClass.findViewByIdCached(pluginContext: IrPluginContext): IrSimpleFunction
 }
 
 fun IrFunction.isFindViewByIdCached(pluginContext: IrPluginContext): Boolean {
+    val regularParameter = parameters.filter { it.kind === IrParameterKind.Regular }
     return name.identifier == FIND_VIEW_BY_ID_CACHED_NAME &&
-        valueParameters.size == 3 &&
-        valueParameters[0].type == pluginContext.typeOfAndroidExtensionsBase() &&
-        valueParameters[1].type == pluginContext.symbols.int.defaultType &&
+            regularParameter.size == 3 &&
+            regularParameter[0].type == pluginContext.typeOfAndroidExtensionsBase() &&
+            regularParameter[1].type == pluginContext.symbols.int.defaultType &&
         // java.lang.Class<T> -> java.lang.Class
-        valueParameters[2].type.classifierOrNull?.defaultType == pluginContext.typeOfJavaClass()
+            regularParameter[2].type.classifierOrNull?.defaultType == pluginContext.typeOfJavaClass()
 }
 
 fun IrClass.isAndroidExtensions(): Boolean {

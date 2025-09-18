@@ -9,8 +9,8 @@ plugins {
 
     // Use Kotlin 2.0.0 to build gradle plugin and compiler plugin for 2.1.0
     // to avoid incompatible issue with gradle build.
-    id("org.jetbrains.kotlin.android") version "2.0.0" apply false
-    id("org.jetbrains.kotlin.jvm") version "2.0.0" apply false
+    id("org.jetbrains.kotlin.android") version "2.2.0" apply false
+    id("org.jetbrains.kotlin.jvm") version "2.2.0" apply false
 
     id("com.vanniktech.maven.publish") version "0.18.0" apply false
     id("com.github.gmazzo.buildconfig") version "2.1.0" apply false
