@@ -35,11 +35,11 @@ fun IrClass.findViewByIdCached(pluginContext: IrPluginContext): IrSimpleFunction
 fun IrFunction.isFindViewByIdCached(pluginContext: IrPluginContext): Boolean {
     val regularParameter = parameters.filter { it.kind === IrParameterKind.Regular }
     return name.identifier == FIND_VIEW_BY_ID_CACHED_NAME &&
-            regularParameter.size == 3 &&
-            regularParameter[0].type == pluginContext.typeOfAndroidExtensionsBase() &&
-            regularParameter[1].type == pluginContext.symbols.int.defaultType &&
+        regularParameter.size == 3 &&
+        regularParameter[0].type == pluginContext.typeOfAndroidExtensionsBase() &&
+        regularParameter[1].type == pluginContext.symbols.int.defaultType &&
         // java.lang.Class<T> -> java.lang.Class
-            regularParameter[2].type.classifierOrNull?.defaultType == pluginContext.typeOfJavaClass()
+        regularParameter[2].type.classifierOrNull?.defaultType == pluginContext.typeOfJavaClass()
 }
 
 fun IrClass.isAndroidExtensions(): Boolean {

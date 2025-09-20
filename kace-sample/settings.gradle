@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        if (settings.hasProperty('testAgp') && testAgp == 'true') {
+            mavenLocal()
+        }
+        mavenCentral()
+        gradlePluginPortal()
+        google()
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "com.android.application" || requested.id.id == "com.android.library") {
+                useVersion(agpVersion)
+            }
+        }
+    }
+}
+
+
+include ':sample-lib'
+include ':app'
+
+rootProject.name = "kace-sample"
+
+if (!settings.hasProperty('testAgp') || testAgp != 'true') {
+    includeBuild '../../Kace'
+}

@@ -16,7 +16,6 @@
 
 package com.kanyun.kace.compiler.utils
 
-import org.jetbrains.kotlin.ir.util.erasedUpperBound
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
@@ -30,6 +29,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.util.allOverridden
 import org.jetbrains.kotlin.ir.util.copyTo
+import org.jetbrains.kotlin.ir.util.erasedUpperBound
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.ir.util.nonDispatchParameters

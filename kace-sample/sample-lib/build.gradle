@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'com.kanyun.kace'
+}
+
+android {
+    compileSdk = vgoCompileSdkVersion.toInteger()
+
+    defaultConfig {
+        minSdk = vgoMinSdkVersion.toInteger()
+        targetSdk = vgoTargetSdkVersion.toInteger()
+
+        consumerProguardFiles "proguard-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    resourcePrefix = "sample_lib"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+    }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.4.1"
+}

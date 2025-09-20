@@ -1,0 +1,46 @@
+ext.ktlintVersion = "0.49.1"
+
+initscript {
+    def spotlessVersion = "6.19.0"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessVersion"
+    }
+}
+
+rootProject {
+    subprojects {
+        apply plugin: com.diffplug.gradle.spotless.SpotlessPlugin
+        spotless {
+            kotlin {
+                target '**/*.kt'
+                targetExclude '**/build/**/*.kt'
+                ktlint(ktlintVersion).userData(
+                        [
+                                "android"                                    : "true",
+                                "max_line_length"                            : "200",
+                                "ij_kotlin_allow_trailing_comma"             : "false",
+                                "ij_kotlin_allow_trailing_comma_on_call_site": "false"
+                        ]
+                )
+                licenseHeaderFile rootProject.file("spotless/copyright.kt")
+            }
+            format 'kts', {
+                target '**/*.kts'
+                targetExclude '**/build/**/*.kts'
+                // Look for the first line that doesn't have a block comment (assumed to be the license)
+                licenseHeaderFile rootProject.file("spotless/copyright.kts"), "(^(?![\\\\/ ]\\\\*).*\$)"
+            }
+            format 'xml', {
+                target '**/*.xml'
+                targetExclude '**/build/**/*.xml'
+                // Look for the first XML tag that isn't a comment (<!--) or the xml declaration (<?xml)
+                licenseHeaderFile rootProject.file("spotless/copyright.xml"), "(<[^!?])"
+            }
+        }
+    }
+}
