@@ -8,6 +8,8 @@ plugins {
 android {
     compileSdk = vgoCompileSdkVersion.toInteger()
 
+    namespace "com.kanyun.sample.lib"
+
     defaultConfig {
         minSdk = vgoMinSdkVersion.toInteger()
         targetSdk = vgoTargetSdkVersion.toInteger()

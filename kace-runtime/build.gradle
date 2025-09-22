@@ -3,8 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+group = property("GROUP").toString()
+version = property("VERSION_NAME").toString()
+
 android {
     compileSdkVersion 32
+
+    namespace = "com.kanyun.kace.runtime"
 
     defaultConfig {
         minSdkVersion 14

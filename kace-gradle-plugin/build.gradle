@@ -20,6 +20,9 @@ plugins {
     id 'maven-publish'
     id 'com.vanniktech.maven.publish'
 }
+group = property("GROUP").toString()
+version = property("VERSION_NAME").toString()
+
 
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-gradle-plugin"
@@ -30,11 +33,11 @@ dependencies {
 
 buildConfig {
     def compilerPluginProject = project(":kace-compiler")
-    packageName = "${compilerPluginProject.group}"
+    packageName = "${compilerPluginProject.GROUP}"
     buildConfigField "String", "KOTLIN_PLUGIN_ID", "\"${project.property('KOTLIN_PLUGIN_ID')}\""
-    buildConfigField "String", "KOTLIN_PLUGIN_GROUP", "\"${compilerPluginProject.group}\""
+    buildConfigField "String", "KOTLIN_PLUGIN_GROUP", "\"${compilerPluginProject.GROUP}\""
     buildConfigField "String", "KOTLIN_PLUGIN_NAME", "\"${compilerPluginProject.property('POM_ARTIFACT_ID')}\""
-    buildConfigField "String", "KOTLIN_PLUGIN_VERSION", "\"${compilerPluginProject.version}\""
+    buildConfigField "String", "KOTLIN_PLUGIN_VERSION", "\"${compilerPluginProject.VERSION_NAME}\""
 }
 
 gradlePlugin {
