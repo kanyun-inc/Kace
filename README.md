@@ -78,7 +78,7 @@ The Kace currently supports the above four most commonly used types. Other types
 | 2.0.0-1.2.0  | 2.0.0        | 7.1.3 | 7.2    |
 | 2.0.20-1.2.0 | 2.0.20       | 7.1.3 | 7.2    |
 | 2.1.0-1.2.0  | 2.1.0        | 7.3.1 | 7.6.3  |
-| 2.2.0-1.2.0  | 2.2.0        | 7.3.1 | 7.6.3  |
+| 2.2.0-1.2.0  | 2.2.0        | 7.3.1 | 8.5    |
 
 Since the goal of the Kace is to help developers easily upgrade to Kotlin 1.8, the minimum supported version of Kotlin is relatively high
 

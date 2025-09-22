@@ -26,6 +26,8 @@ plugins {
 // Build this project with Kotlin 2.0.0 for compatibility reason.
 // But we should depend on libs for Kotlin 2.1.0.
 def kotlinVersion = "2.2.0"
+group = property("GROUP").toString()
+version = property("VERSION_NAME").toString()
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
@@ -47,6 +49,6 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
 }
 
 buildConfig {
-    packageName = project.group
+    packageName = project.GROUP
     buildConfigField "String", "KOTLIN_PLUGIN_ID", "\"${project.property('KOTLIN_PLUGIN_ID')}\""
 }

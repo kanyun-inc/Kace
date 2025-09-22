@@ -8,6 +8,8 @@ plugins {
 android {
     compileSdk = vgoCompileSdkVersion.toInteger()
 
+    namespace "com.kanyun.kace.sample.demo"
+
     defaultConfig {
         applicationId = "com.kanyun.kace.sample"
         minSdk = vgoMinSdkVersion.toInteger()
