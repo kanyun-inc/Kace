@@ -45,6 +45,7 @@ import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.makeNullable
 import org.jetbrains.kotlin.ir.util.SYNTHETIC_OFFSET
 import org.jetbrains.kotlin.ir.util.constructors
+import org.jetbrains.kotlin.ir.util.nonDispatchParameters
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
 class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransformerVoid() {
@@ -99,11 +100,9 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                             ).apply {
                                 dispatchReceiver = androidExtensionsValue
 
-                                valueParameters.forEachIndexed { index, irValueParameter ->
-                                    putValueArgument(
-                                        index,
-                                        irGet(irValueParameter.type, irValueParameter.symbol),
-                                    )
+                                nonDispatchParameters.forEachIndexed { index, irValueParameter ->
+                                    arguments[index + 1] =
+                                        irGet(irValueParameter.type, irValueParameter.symbol)
                                 }
                             },
                         )

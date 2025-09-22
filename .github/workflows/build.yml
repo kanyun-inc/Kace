@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew publishToMavenLocal -PVERSION_NAME=0.0.0-SNAPSHOT
 
       - name: Check spotless
-        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache
+        run: ./gradlew spotlessCheck --init-script gradle/init.gradle --no-configuration-cache
 
       - name: Test AGP compatibility
         run: chmod +x ./test_agp.sh && ./test_agp.sh

@@ -16,7 +16,6 @@
 
 package com.kanyun.kace.compiler.utils
 
-import org.jetbrains.kotlin.backend.jvm.ir.erasedUpperBound
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
@@ -30,8 +29,10 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.util.allOverridden
 import org.jetbrains.kotlin.ir.util.copyTo
+import org.jetbrains.kotlin.ir.util.erasedUpperBound
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.functions
+import org.jetbrains.kotlin.ir.util.nonDispatchParameters
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.util.parentClassOrNull
 import org.jetbrains.kotlin.name.FqName
@@ -60,7 +61,7 @@ fun IrClass.addOverride(
     this.origin = IrDeclarationOrigin.DEFINED
 }.apply {
     val thisReceiver = parentAsClass.thisReceiver!!
-    dispatchReceiverParameter = thisReceiver.copyTo(this, type = thisReceiver.type)
+    parameters = listOf(thisReceiver.copyTo(this, type = thisReceiver.type)) + nonDispatchParameters
 
     overriddenSymbols = superTypes.mapNotNull { superType ->
         superType.classOrNull?.owner?.takeIf { superClass ->
