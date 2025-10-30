@@ -35,12 +35,19 @@ import org.jetbrains.kotlin.ir.builders.Scope
 import org.jetbrains.kotlin.ir.builders.declarations.addField
 import org.jetbrains.kotlin.ir.builders.declarations.addTypeParameter
 import org.jetbrains.kotlin.ir.builders.declarations.addValueParameter
+import org.jetbrains.kotlin.ir.builders.irBlock
+import org.jetbrains.kotlin.ir.builders.irBranch
 import org.jetbrains.kotlin.ir.builders.irCall
+import org.jetbrains.kotlin.ir.builders.irEquals
 import org.jetbrains.kotlin.ir.builders.irExprBody
 import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.builders.irGetField
+import org.jetbrains.kotlin.ir.builders.irNull
 import org.jetbrains.kotlin.ir.builders.irReturn
+import org.jetbrains.kotlin.ir.builders.irSetField
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
+import org.jetbrains.kotlin.ir.expressions.impl.IrWhenImpl
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.types.makeNullable
 import org.jetbrains.kotlin.ir.util.SYNTHETIC_OFFSET
@@ -64,14 +71,15 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                     DELEGATE_FIELD_NAME,
                     androidExtensionImpl.defaultType,
                 ).apply {
-                    initializer = DeclarationIrBuilder(
+                    //tip: viewholder dialog这种有构造函数的类 会在构造函数return前才初始化对象 时机较晚 这里注释掉交给findViewByIdCached方法里懒加载
+                    /*initializer = DeclarationIrBuilder(
                         context,
                         symbol,
                         symbol.owner.startOffset,
                         symbol.owner.endOffset,
                     ).run {
                         irExprBody(irCall(androidExtensionImpl.constructors.first()))
-                    }
+                    }*/
                 }
 
                 // override fun <T> findViewByIdCached(owner, id) = ...
@@ -93,6 +101,28 @@ class KaceIrTransformer(private val context: IrPluginContext) : IrElementTransfo
                         SYNTHETIC_OFFSET,
                     ).apply {
                         val androidExtensionsValue = irGetField(irThis(), androidExtensionsField)
+                        // 生成 `if (androidExtensionsImpl == null)` 检查
+                        +IrWhenImpl(
+                            startOffset = SYNTHETIC_OFFSET,
+                            endOffset = SYNTHETIC_OFFSET,
+                            type = context.irBuiltIns.unitType,
+                            origin = IrStatementOrigin.IF
+                        ).apply {
+                            branches += irBranch(
+                                condition = irEquals(
+                                    irGetField(irThis(), androidExtensionsField),
+                                    irNull()
+                                ),
+                                result = irBlock {
+                                    // 懒加载生成 `androidExtensionsImpl = new AndroidExtensionsImpl()`
+                                    val constructor = androidExtensionImpl.constructors.first()
+                                    val newInstance = irCall(constructor.owner).apply {
+                                        type = constructor.owner.returnType
+                                    }
+                                    +irSetField(irThis(), androidExtensionsField, newInstance)
+                                }
+                            )
+                        }
                         +irReturn(
                             irCall(
                                 androidExtensionImpl.owner.findViewByIdCached(this@KaceIrTransformer.context)!!.symbol,

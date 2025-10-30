@@ -17,9 +17,11 @@
 package com.kanyun.kace
 
 import android.app.Activity
+import android.app.Dialog
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import kotlinx.android.extensions.LayoutContainer
 
 sealed interface AndroidExtensionsComponent {
     fun <V : View?> findViewById(id: Int): V?
@@ -33,6 +35,8 @@ fun AndroidExtensionsComponent(
     return when (owner) {
         is Activity -> AndroidExtensionsActivity(owner, onViewDestroy, onComponentDestroy)
         is Fragment -> AndroidExtensionsFragment(owner, onViewDestroy, onComponentDestroy)
+        is Dialog -> AndroidExtensionsDialog(owner, onViewDestroy, onComponentDestroy)
+        is LayoutContainer -> AndroidExtensionsHolder(owner, onViewDestroy, onComponentDestroy)
         else -> throw UnsupportedOperationException()
     }
 }
@@ -85,5 +89,45 @@ class AndroidExtensionsFragment(
 
     override fun <V : View?> findViewById(id: Int): V? {
         return fragment.view?.findViewById(id)
+    }
+}
+
+class AndroidExtensionsHolder(
+    private val holder: LayoutContainer,
+    onViewDestroy: () -> Unit,
+    onComponentDestroy: () -> Unit,
+) : AndroidExtensionsComponent {
+    init {
+
+    }
+
+    override fun <V : View?> findViewById(id: Int): V? {
+        return holder.containerView?.findViewById(id)
+    }
+}
+
+
+
+class AndroidExtensionsDialog(
+    private val dialog: Dialog,
+    onViewDestroy: () -> Unit,
+    onComponentDestroy: () -> Unit,
+) : AndroidExtensionsComponent {
+
+    init {
+        if (dialog.context is LifecycleOwner) {
+            val lifecycleOwner = dialog.context as LifecycleOwner
+            lifecycleOwner.lifecycle.addObserver(object : KaceLifecycleObserver() {
+                override fun onDestroy(owner: LifecycleOwner) {
+                    super.onDestroy(owner)
+                    onViewDestroy()
+                    onComponentDestroy()
+                }
+            })
+        }
+    }
+
+    override fun <V : View?> findViewById(id: Int): V? {
+        return dialog.findViewById(id)
     }
 }

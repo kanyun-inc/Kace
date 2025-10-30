@@ -63,8 +63,10 @@ kace {
 - androidx.fragment.app.Fragment
 - androidx.fragment.app.DialogFragment
 - android.view.View(目前 View 类型不支持 viewId 缓存)
+- android.app.Dialog
+- kotlinx.android.extensions.LayoutContainer
 
-Kace 目前支持了以上四种最常用的类型，其他 kotlin-android-extensions 支持的类型如 android.app.Fragment, android.app.Dialog, kotlinx.android.extensions.LayoutContainer 等，由于被废弃或者使用较少，Kace 目前没有做支持
+Kace 目前支持了以上四种最常用的类型，其他 kotlin-android-extensions 支持的类型如 android.app.Fragment 等，由于被废弃或者使用较少，Kace 目前没有做支持
 
 ## 版本兼容
 | Kace         | Kotlin       | AGP   | Gradle |

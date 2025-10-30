@@ -33,12 +33,16 @@ val ANDROID_EXTENSIONS_IMPL_CLASS_ID = classId("com.kanyun.kace", "AndroidExtens
 val ANDROID_VIEW_CLASS_ID = classId("android.view", "View")
 val ANDROID_ACTIVITY_CLASS_ID = classId("android.app", "Activity")
 val ANDROIDX_FRAGMENT_CLASS_ID = classId("androidx.fragment.app", "Fragment")
+val ANDROID_DIALOG_CLASS_ID = classId("android.app", "Dialog")
+val ANDROIDX_HOLDER_CLASS_ID = classId("kotlinx.android.extensions", "LayoutContainer")
 
 val JAVA_CLASS_CLASS_ID = classId("java.lang", "Class")
 
 val IMPLICIT_ANDROID_EXTENSIONS_CLASS_IDS = setOf(
     ANDROID_ACTIVITY_CLASS_ID,
     ANDROIDX_FRAGMENT_CLASS_ID,
+    ANDROID_DIALOG_CLASS_ID,
+    ANDROIDX_HOLDER_CLASS_ID,
 )
 
 val ANDROID_EXTENSIONS_FQNAME = FqName(ANDROID_EXTENSIONS_FULL_NAME)
@@ -46,6 +50,8 @@ val ANDROID_EXTENSIONS_FQNAME = FqName(ANDROID_EXTENSIONS_FULL_NAME)
 val IMPLICIT_ANDROID_EXTENSIONS_TYPES = setOf(
     "android.app.Activity",
     "androidx.fragment.app.Fragment",
+    "android.app.Dialog",
+    "kotlinx.android.extensions.LayoutContainer",
 )
 
 const val FIND_VIEW_BY_ID_CACHED_NAME = "findViewByIdCached"

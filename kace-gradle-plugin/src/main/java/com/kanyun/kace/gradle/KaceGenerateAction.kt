@@ -66,6 +66,8 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
             writer.appendLine("import ${BuildConfig.KOTLIN_PLUGIN_GROUP}.AndroidExtensionsBase")
             writer.appendLine("import android.app.Activity")
             writer.appendLine("import androidx.fragment.app.Fragment")
+            writer.appendLine("import android.app.Dialog")
+            writer.appendLine("import kotlinx.android.extensions.LayoutContainer")
             writer.appendLine("import $namespace.R")
             writer.newLine()
 
@@ -75,6 +77,10 @@ abstract class KaceGenerateAction : WorkAction<KaceGenerateAction.Parameters> {
                 writer.appendLine("internal inline val Activity.${item.viewId}")
                 writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
                 writer.appendLine("internal inline val Fragment.${item.viewId}")
+                writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
+                writer.appendLine("internal inline val Dialog.${item.viewId}")
+                writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
+                writer.appendLine("internal inline val LayoutContainer.${item.viewId}")
                 writer.appendLine("    get() = (this as AndroidExtensionsBase).${item.viewId}")
                 writer.newLine()
             }

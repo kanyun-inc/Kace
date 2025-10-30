@@ -34,4 +34,5 @@ dependencies {
 
     compileOnly("androidx.fragment:fragment:1.4.1")
     compileOnly("androidx.lifecycle:lifecycle-common:2.4.0")
+    compileOnly("org.jetbrains.kotlin:kotlin-android-extensions-runtime:2.1.20")
 }
