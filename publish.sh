@@ -7,5 +7,5 @@ snapshotSuffix='SNAPSHOT'
 ./gradlew publishAllPublicationsToMavenCentral
 if [[ "$publishVersion" != *"$snapshotSuffix"* ]]; then
   echo "auto release artifacts of ${publishVersion}"
-  ./gradlew closeAndReleaseRepository
+  ./gradlew releaseRepository
 fi
